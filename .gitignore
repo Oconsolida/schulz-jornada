@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs e temporários
+*.log
+*.tmp
+*.bak
+*.cache
+
+# Node (caso futuro)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build (caso futuro)
+dist/
+build/
+.next/
+out/

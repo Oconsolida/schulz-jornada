@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schulz S.A. · A jornada de uma carga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fdfdfb;
+    --bg-soft: #f6f5f1;
+    --bg-deep: #0e0e1a;
+    --bg-card: #ffffff;
+    --bg-tint: #f2f0fb;
+    --bg-tint-cyan: #ecfafa;
+    --bg-tint-warn: #fdf2f4;
+    --border: #ebe9e2;
+    --border-strong: #d6d3c8;
+    --purple: #5B45F5;
+    --purple-soft: #7a67f7;
+    --purple-tint: #ebe7ff;
+    --cyan: #00B8B8;
+    --cyan-soft: #2dd0d0;
+    --cyan-tint: #d9f5f5;
+    --warn: #e84a6b;
+    --warn-tint: #fbe6ec;
+    --success: #14a878;
+    --text: #0e0e1a;
+    --text-mid: #4d4d5e;
+    --text-dim: #8a8a98;
+    --max-w: 1180px;
+    --shadow-sm: 0 1px 3px rgba(14,14,26,0.06);
+    --shadow-md: 0 6px 16px rgba(14,14,26,0.08);
+    --shadow-lg: 0 24px 48px -16px rgba(91,69,245,0.18), 0 8px 16px rgba(14,14,26,0.05);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    line-height: 1.55;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 900px 700px at 10% 0%, rgba(91,69,245,0.05), transparent 60%),
+      radial-gradient(ellipse 800px 600px at 90% 100%, rgba(0,184,184,0.04), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  main { position: relative; z-index: 2; }
+
+  /* Top nav */
+  .topnav {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 12px 24px;
+    background: rgba(253,253,251,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: var(--shadow-md);
+  }
+  .topnav .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 800; letter-spacing: -0.02em;
+    color: var(--text); font-size: 15px;
+  }
+  .topnav .logo .dot {
+    width: 10px; height: 10px;
+    border-radius: 3px;
+    background: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(0,184,184,0.15);
+  }
+  .topnav .meta {
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 720px) {
+    .topnav { gap: 14px; padding: 10px 18px; }
+    .topnav .meta { display: none; }
+  }
+
+  /* Progress bar */
+  .progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--purple), var(--cyan));
+    z-index: 100;
+    transition: width 0.1s linear;
+  }
+
+  /* Section base */
+  section {
+    position: relative;
+    padding: 140px 32px;
+  }
+  section.alt { background: var(--bg-soft); }
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--purple);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    padding: 6px 14px;
+    background: var(--purple-tint);
+    border-radius: 999px;
+  }
+  .eyebrow.cyan { color: var(--cyan); background: var(--cyan-tint); }
+  .eyebrow.warn { color: var(--warn); background: var(--warn-tint); }
+  .eyebrow.dark { background: var(--bg-deep); color: #fff; }
+
+  h1, h2, h3, h4 {
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.06;
+    color: var(--text);
+  }
+  h1 { font-size: clamp(48px, 8vw, 110px); }
+  h2 { font-size: clamp(36px, 5.2vw, 68px); }
+  h3 { font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; }
+
+  .lead {
+    font-size: clamp(17px, 1.6vw, 22px);
+    color: var(--text-mid);
+    max-width: 720px;
+    line-height: 1.6;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .hero-deco {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, var(--purple-tint), transparent 40%),
+      radial-gradient(circle at 80% 70%, var(--cyan-tint), transparent 40%);
+    opacity: 0.7;
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(14,14,26,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(14,14,26,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 80%);
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero h1 { margin-bottom: 32px; }
+  .hero h1 .accent {
+    background: linear-gradient(120deg, var(--purple) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .hero-meta strong {
+    color: var(--purple);
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .hero-meta span { color: var(--text-mid); font-size: 14px; font-weight: 500; }
+
+  .scrollhint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-dim);
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    animation: bob 2.5s ease-in-out infinite;
+  }
+  .scrollhint .line {
+    width: 1px; height: 40px;
+    background: linear-gradient(180deg, var(--purple), transparent);
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: 0.1s; }
+  .reveal.delay-2 { transition-delay: 0.2s; }
+  .reveal.delay-3 { transition-delay: 0.3s; }
+  .reveal.delay-4 { transition-delay: 0.4s; }
+
+  /* PANORAMA */
+  .panorama-tese {
+    text-align: center;
+    margin-bottom: 80px;
+    position: relative;
+  }
+  .panorama-tese::before {
+    content: '"';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 180px;
+    line-height: 1;
+    color: var(--purple-tint);
+    z-index: -1;
+  }
+  .panorama-tese h2 {
+    font-size: clamp(34px, 5vw, 60px);
+    line-height: 1.15;
+  }
+  .panorama-tese h2 .strike {
+    color: var(--text-dim);
+    text-decoration: line-through;
+    text-decoration-color: rgba(232,74,107,0.4);
+    text-decoration-thickness: 3px;
+  }
+  .panorama-tese h2 .accent {
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 720px) { .stats { grid-template-columns: 1fr; } }
+
+  .stat {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+  }
+  .stat:hover {
+    border-color: var(--purple);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .stat::after {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, var(--purple-tint), transparent 70%);
+    opacity: 0.6;
+  }
+  .stat-num {
+    font-size: clamp(48px, 6vw, 76px);
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 10px;
+    letter-spacing: -0.04em;
+    position: relative; z-index: 1;
+  }
+  .stat-num .unit { font-size: 0.4em; color: var(--purple); font-weight: 700; }
+  .stat-label { font-size: 14px; color: var(--text-mid); font-weight: 600; position: relative; z-index: 1; }
+  .stat-sub { font-size: 12px; color: var(--text-dim); margin-top: 6px; font-family: 'JetBrains Mono', monospace; position: relative; z-index: 1; }
+
+  /* JORNADA HORIZONTAL */
+  .jornada-section {
+    padding: 0;
+    background: var(--bg-deep);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .jornada-intro {
+    padding: 140px 32px 60px;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .jornada-intro h2 { color: #fff; margin-bottom: 20px; }
+  .jornada-intro h2 .accent {
+    background: linear-gradient(135deg, var(--purple-soft), var(--cyan-soft));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .jornada-intro p { color: rgba(255,255,255,0.7); font-size: 18px; max-width: 720px; }
+
+  .jornada-rail {
+    display: flex;
+    gap: 28px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 40px 32px 100px;
+    scroll-padding-left: 32px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.2) transparent;
+  }
+  .jornada-rail::-webkit-scrollbar { height: 8px; }
+  .jornada-rail::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); }
+  .jornada-rail::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+  .jornada-rail::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+
+  .estacao {
+    flex: 0 0 540px;
+    scroll-snap-align: start;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 28px;
+    padding: 40px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    position: relative;
+    transition: all 0.4s ease;
+  }
+  .estacao:hover {
+    transform: translateY(-4px);
+    border-color: rgba(91,69,245,0.4);
+    background: rgba(91,69,245,0.05);
+  }
+  @media (max-width: 720px) {
+    .estacao { flex: 0 0 88vw; padding: 32px 28px; }
+  }
+
+  .estacao-num {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .estacao-num .badge {
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+  }
+  .estacao-num .step {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .estacao h3 {
+    color: #fff;
+    margin-bottom: 12px;
+    font-size: 26px;
+  }
+
+  .estacao-pergunta {
+    font-style: italic;
+    color: var(--cyan-soft);
+    font-size: 15px;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px dashed rgba(255,255,255,0.12);
+    line-height: 1.5;
+  }
+
+  .estacao-states {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .estacao-state {
+    padding: 18px 20px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid;
+  }
+  .estacao-state.asis { border-left-color: var(--warn); }
+  .estacao-state.tobe { border-left-color: var(--cyan); }
+  .estacao-state .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .estacao-state.asis .label { color: var(--warn); }
+  .estacao-state.tobe .label { color: var(--cyan-soft); }
+  .estacao-state .label::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .estacao-state p {
+    color: rgba(255,255,255,0.85);
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+
+  .estacao-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px dashed rgba(255,255,255,0.12);
+  }
+  .estacao-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+  }
+  .estacao-tag.area { background: rgba(91,69,245,0.18); color: var(--purple-soft); }
+  .estacao-tag.tech { background: rgba(0,184,184,0.18); color: var(--cyan-soft); }
+
+  .jornada-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 32px 60px;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    color: rgba(255,255,255,0.6);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .jornada-progress .arrows {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+  }
+  .jornada-progress .arrow {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s;
+  }
+  .jornada-progress .arrow:hover {
+    background: var(--purple);
+    border-color: var(--purple);
+  }
+  .jornada-progress .arrow svg {
+    width: 16px; height: 16px;
+    fill: none; stroke: currentColor;
+    stroke-width: 2.5;
+  }
+
+  /* O FIO INVISÍVEL */
+  .fio-section {
+    padding: 180px 32px;
+    background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+    text-align: center;
+  }
+  .fio-content { max-width: 880px; margin: 0 auto; }
+  .fio-content h2 {
+    font-size: clamp(34px, 5vw, 60px);
+    margin-bottom: 28px;
+  }
+  .fio-content h2 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .fio-content .quote {
+    font-size: clamp(20px, 2.4vw, 28px);
+    line-height: 1.5;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 16px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .fio-content .quote .red { color: var(--warn); font-weight: 700; }
+  .fio-content .quote .green { color: var(--cyan); font-weight: 700; }
+
+  .fio-diagram {
+    margin: 80px auto 0;
+    max-width: 980px;
+    background: var(--bg-card);
+    border-radius: 28px;
+    padding: 48px 36px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+  }
+  .fio-diagram-title {
+    text-align: center;
+    margin-bottom: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    font-weight: 700;
+  }
+  .fio-diagram-title.warn { color: var(--warn); }
+  .fio-diagram-title.success { color: var(--cyan); }
+
+  .fio-stations {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 0;
+    position: relative;
+  }
+  @media (max-width: 720px) {
+    .fio-stations { flex-direction: column; gap: 16px; }
+    .fio-stations .fio-link { display: none; }
+  }
+
+  .fio-station {
+    flex: 0 0 auto;
+    width: 13%;
+    text-align: center;
+  }
+  .fio-circle {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--text);
+    transition: all 0.4s ease;
+  }
+  .fio-station.active .fio-circle {
+    border-color: var(--purple);
+    background: var(--purple);
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 0 0 6px var(--purple-tint);
+  }
+  .fio-label {
+    font-size: 11px;
+    color: var(--text-mid);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .fio-link {
+    flex: 1;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .fio-link-line {
+    width: 100%;
+    height: 3px;
+    border-radius: 2px;
+    transition: all 0.6s ease;
+  }
+  .fio-link.email .fio-link-line {
+    background: repeating-linear-gradient(90deg, var(--warn) 0 8px, transparent 8px 16px);
+  }
+  .fio-link.system .fio-link-line {
+    background: linear-gradient(90deg, var(--cyan), var(--purple));
+    box-shadow: 0 0 12px rgba(0,184,184,0.4);
+  }
+  .fio-link-emoji {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg-card);
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    line-height: 1;
+  }
+
+  .fio-toggle {
+    margin: 32px auto 0;
+    display: inline-flex;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px;
+  }
+  .fio-toggle button {
+    border: none;
+    background: transparent;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .fio-toggle button.active {
+    background: var(--text);
+    color: var(--bg);
+  }
+  .fio-toggle-wrap { text-align: center; }
+
+  .fio-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 36px;
+  }
+  @media (max-width: 720px) { .fio-summary { grid-template-columns: 1fr; } }
+  .fio-summary-item {
+    padding: 18px 22px;
+    border-radius: 14px;
+    background: var(--bg-soft);
+    text-align: left;
+  }
+  .fio-summary-item.warn { background: var(--warn-tint); }
+  .fio-summary-item.ok { background: var(--cyan-tint); }
+  .fio-summary-item .num {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+    letter-spacing: -0.03em;
+  }
+  .fio-summary-item.warn .num { color: var(--warn); }
+  .fio-summary-item.ok .num { color: var(--cyan); }
+  .fio-summary-item .desc {
+    font-size: 13px;
+    color: var(--text-mid);
+    font-weight: 500;
+  }
+
+  /* PEÇA INVISÍVEL */
+  .peca-section {
+    padding: 180px 32px;
+    background: var(--bg);
+  }
+  .peca-content { max-width: var(--max-w); margin: 0 auto; }
+  .peca-card {
+    background: linear-gradient(135deg, var(--bg-card), var(--bg-soft));
+    border: 2px solid var(--purple);
+    border-radius: 32px;
+    padding: 64px 56px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    margin-top: 56px;
+  }
+  .peca-card::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, var(--purple-tint), transparent 60%);
+  }
+  .peca-card .ribbon {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    margin-bottom: 24px;
+    position: relative; z-index: 1;
+  }
+  .peca-card h3 {
+    font-size: clamp(28px, 3.6vw, 42px);
+    margin-bottom: 24px;
+    position: relative; z-index: 1;
+    line-height: 1.15;
+  }
+  .peca-card h3 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .peca-card p {
+    font-size: 17px;
+    color: var(--text-mid);
+    line-height: 1.65;
+    margin-bottom: 16px;
+    max-width: 760px;
+    position: relative; z-index: 1;
+  }
+  .peca-card p strong { color: var(--text); font-weight: 700; }
+
+  .peca-divisao {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 32px;
+    position: relative; z-index: 1;
+  }
+  @media (max-width: 720px) { .peca-divisao { grid-template-columns: 1fr; } }
+  .peca-divisao > div {
+    padding: 24px;
+    background: var(--bg-card);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+  }
+  .peca-divisao h5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .peca-divisao .ferramenta h5 { color: var(--cyan); }
+  .peca-divisao .governanca h5 { color: var(--purple); }
+  .peca-divisao p { font-size: 14.5px; color: var(--text); line-height: 1.5; margin-bottom: 0;}
+
+  /* DECISÕES EXECUTIVAS */
+  .decisoes-section {
+    padding: 140px 32px;
+    background: var(--bg-soft);
+  }
+  .decisoes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 56px;
+  }
+  @media (max-width: 900px) { .decisoes-grid { grid-template-columns: 1fr; } }
+
+  .decisao {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 36px 32px;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .decisao:hover {
+    border-color: var(--purple);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .decisao .num {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    background: var(--purple-tint);
+    color: var(--purple);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+  .decisao h4 {
+    font-size: 19px;
+    margin-bottom: 12px;
+    line-height: 1.3;
+    font-weight: 700;
+  }
+  .decisao .descricao {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.55;
+    margin-bottom: 24px;
+    flex: 1;
+  }
+  .decisao .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border);
+  }
+  .decisao .meta-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+  }
+  .decisao .meta-row .key {
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+  .decisao .meta-row .val { color: var(--text); font-weight: 600; }
+
+  /* CRONOGRAMA SWIMLANE */
+  .crono-section {
+    padding: 140px 32px;
+    background: var(--bg);
+  }
+  .swimlane {
+    margin-top: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .swimlane-row {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+  }
+  .swimlane-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .swimlane-head .lane-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 700;
+  }
+  .swimlane-row.sistema .lane-tag { background: var(--cyan-tint); color: var(--cyan); }
+  .swimlane-row.governanca .lane-tag { background: var(--purple-tint); color: var(--purple); }
+  .swimlane-head h4 {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .swimlane-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+  }
+  .swimlane-step {
+    background: var(--bg-soft);
+    border-radius: 14px;
+    padding: 18px 20px;
+    border-left: 3px solid;
+    transition: all 0.3s ease;
+  }
+  .swimlane-step:hover { transform: translateX(2px); }
+  .swimlane-row.sistema .swimlane-step { border-left-color: var(--cyan); }
+  .swimlane-row.governanca .swimlane-step { border-left-color: var(--purple); }
+  .swimlane-step .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .swimlane-step .step-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .swimlane-step .step-desc {
+    font-size: 12px;
+    color: var(--text-mid);
+    line-height: 1.45;
+  }
+
+  .swimlane-conv {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--purple-tint), var(--cyan-tint));
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .swimlane-conv::before { content: '⏵ '; }
+
+  /* INDICADORES */
+  .kpi-section {
+    padding: 140px 32px;
+    background: var(--bg-soft);
+  }
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 56px;
+  }
+  .kpi-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    transition: all 0.3s ease;
+  }
+  .kpi-card:hover {
+    border-color: var(--cyan);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .kpi-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: var(--cyan-tint);
+    color: var(--cyan);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+    margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .kpi-card h5 {
+    font-size: 14.5px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .kpi-card .kpi-sub {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 16px;
+  }
+  .kpi-card .kpi-comparison {
+    display: flex;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+  }
+  .kpi-card .kpi-comparison > div {
+    flex: 1;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .kpi-card .kpi-comparison .label {
+    color: var(--text-dim);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .kpi-card .kpi-comparison .val {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .kpi-card .kpi-comparison .val.now { color: var(--warn); }
+  .kpi-card .kpi-comparison .val.target { color: var(--cyan); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 120px 32px 60px;
+    background: var(--bg-deep);
+    color: #fff;
+    text-align: center;
+  }
+  footer h2 { color: #fff; margin-bottom: 16px; }
+  footer .accent {
+    background: linear-gradient(135deg, var(--purple-soft), var(--cyan-soft));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  footer p {
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .footer-cta {
+    display: inline-block;
+    margin-bottom: 60px;
+    padding: 16px 36px;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    color: #fff;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .footer-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px -8px rgba(91,69,245,0.5);
+  }
+  .contacts {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 60px;
+  }
+  .contact-tag {
+    padding: 12px 22px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 999px;
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+  .footer-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  /* SECTION NAVIGATOR */
+  .secnav {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px 10px 18px;
+    background: rgba(253,253,251,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .secnav.visible { opacity: 1; transform: translateY(0); }
+  .secnav-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-mid);
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    min-width: 38px;
+    text-align: center;
+  }
+  .secnav-counter strong { color: var(--purple); font-weight: 700; }
+  .secnav-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    padding: 0;
+  }
+  .secnav-btn:hover:not(:disabled) {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: #fff;
+    transform: scale(1.08);
+  }
+  .secnav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .secnav-btn svg {
+    width: 16px; height: 16px;
+    fill: none; stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .secnav-btn.primary {
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    border-color: transparent;
+    color: #fff;
+    width: 44px; height: 44px;
+  }
+  .secnav-btn.primary:hover:not(:disabled) {
+    transform: scale(1.08);
+    box-shadow: 0 8px 24px rgba(91,69,245,0.35);
+  }
+  .secnav-btn.primary svg { width: 20px; height: 20px; }
+  @media (max-width: 720px) {
+    .secnav { bottom: 16px; right: 16px; padding: 8px 10px 8px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<nav class="topnav">
+  <div class="logo"><span class="dot"></span>consolida</div>
+  <span class="meta">SCHULZ · 30 ABR 2026</span>
+</nav>
+
+<div class="secnav" id="secnav">
+  <span class="secnav-counter"><strong id="secnavCurrent">1</strong> / <span id="secnavTotal">8</span></span>
+  <button class="secnav-btn" id="secnavPrev" aria-label="Anterior">
+    <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
+  </button>
+  <button class="secnav-btn primary" id="secnavNext" aria-label="Próximo">
+    <svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
+  </button>
+</div>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-deco"></div>
+    <div class="hero-grid"></div>
+    <div class="container hero-content">
+      <div class="eyebrow reveal in">Schulz S.A. · Diagnóstico de Logística</div>
+      <h1 class="reveal in delay-1">A jornada de uma carga,<br><span class="accent">do pedido ao pagamento.</span></h1>
+      <p class="lead reveal in delay-2">Em cada momento da vida de uma carga, o que a Schulz controla hoje, e o que vai passar a controlar.</p>
+      <div class="hero-meta reveal in delay-3">
+        <div><strong>Cliente</strong><span>Schulz S.A. · Joinville/SC</span></div>
+        <div><strong>Apresentação</strong><span>30 de abril de 2026</span></div>
+        <div><strong>Elaboração</strong><span>Consolida + Lincros</span></div>
+      </div>
+    </div>
+    <div class="scrollhint">Comece pela jornada<div class="line"></div></div>
+  </section>
+
+  <!-- PANORAMA -->
+  <section id="panorama">
+    <div class="container">
+      <div class="panorama-tese reveal">
+        <h2><span class="strike">A Schulz controla a carga até a porta.</span><br><span class="accent">Depois, perde.</span></h2>
+      </div>
+
+      <div class="stats">
+        <div class="stat reveal delay-1">
+          <div class="stat-num"><span data-counter="58">0</span><span class="unit"> M</span></div>
+          <div class="stat-label">Conta frete anual (R$)</div>
+          <div class="stat-sub">automotiva + compressores</div>
+        </div>
+        <div class="stat reveal delay-2">
+          <div class="stat-num"><span data-counter="7">0</span></div>
+          <div class="stat-label">Portais consultados</div>
+          <div class="stat-sub">10 vezes ao dia</div>
+        </div>
+        <div class="stat reveal delay-3">
+          <div class="stat-num"><span data-counter="30">0</span><span class="unit"> %</span></div>
+          <div class="stat-label">Entregas sem controle</div>
+          <div class="stat-sub">agendamento da transportadora</div>
+        </div>
+      </div>
+
+      <p class="lead reveal delay-4" style="margin-top: 56px; font-size: 17px; max-width: 760px;">
+        São três sintomas de um mesmo problema: a Schulz tem visibilidade da operação até o momento em que a carga sai. A partir daí, o controle migra para múltiplos sistemas e múltiplas conversas. As próximas 6 estações da jornada mostram onde isso acontece, e como o redesenho devolve o controle pra dentro de casa.
+      </p>
+    </div>
+  </section>
+
+  <!-- JORNADA HORIZONTAL -->
+  <section class="jornada-section" id="jornada">
+    <div class="jornada-intro">
+      <div class="eyebrow dark reveal" style="background: rgba(255,255,255,0.08); color: var(--cyan-soft);">A jornada</div>
+      <h2 class="reveal delay-1">6 estações,<br><span class="accent">do pedido ao pagamento.</span></h2>
+      <p class="reveal delay-2">Cada estação tem uma pergunta de controle. Hoje, em quatro delas a resposta é "não temos como saber". Arraste para o lado, ou use as setas.</p>
+    </div>
+
+    <div class="jornada-rail" id="jornadaRail">
+
+      <!-- ESTAÇÃO 1 -->
+      <div class="estacao">
+        <div class="estacao-num">
+          <span class="badge">1</span>
+          <span class="step">Estação 01 / 06</span>
+        </div>
+        <h3>Pedido entra</h3>
+        <p class="estacao-pergunta">A Schulz sabe que essa carga vai sair no prazo?</p>
+
+        <div class="estacao-states">
+          <div class="estacao-state asis">
+            <div class="label">Hoje</div>
+            <p>Pedido cai no ERP via EDI. GAC monta agendamento no TOTVS. Romaneio é gerado, mas sua obrigatoriedade varia entre Automotiva e Compressores. Sem padrão único de embarque, parte das saídas físicas não tem rastro a partir daqui.</p>
+          </div>
+          <div class="estacao-state tobe">
+            <div class="label">Com o redesenho</div>
+            <p>Romaneio do TOTVS vira Embarque no Lincros via integração já existente. Romaneio passa a ser obrigatório para toda saída física, virando a chave única de rastreabilidade da carga.</p>
+          </div>
+        </div>
+
+        <div class="estacao-meta">
+          <span class="estacao-tag area">Vendas · GAC</span>
+          <span class="estacao-tag tech">Integração TOTVS / Lincros</span>
+        </div>
+      </div>
+
+      <!-- ESTAÇÃO 2 -->
+      <div class="estacao">
+        <div class="estacao-num">
+          <span class="badge">2</span>
+          <span class="step">Estação 02 / 06</span>
+        </div>
+        <h3>Carga é contratada</h3>
+        <p class="estacao-pergunta">A Schulz pagou o melhor preço justo?</p>
+
+        <div class="estacao-states">
+          <div class="estacao-state asis">
+            <div class="label">Hoje</div>
+            <p>Carga em tabela funciona. Carga expressa não. Compras aciona transportadoras por e-mail e WhatsApp na ordem do menor preço, espera retorno, vai pra próxima se a primeira recusou. Nada disso fica registrado em sistema.</p>
+          </div>
+          <div class="estacao-state tobe">
+            <div class="label">Com o redesenho</div>
+            <p>Carga expressa passa por Ordem de Coleta no Lincros. Sistema dispara para a transportadora com peso, valor, destino e prazo. Aceite ou recusa pelo portal. Cotação spot, quando entra, exige no mínimo 3 transportadoras e acontece antes da expedição.</p>
+          </div>
+        </div>
+
+        <div class="estacao-meta">
+          <span class="estacao-tag area">Compras</span>
+          <span class="estacao-tag tech">Ordem de Coleta · Lincros</span>
+        </div>
+      </div>
+
+      <!-- ESTAÇÃO 3 -->
+      <div class="estacao">
+        <div class="estacao-num">
+          <span class="badge">3</span>
+          <span class="step">Estação 03 / 06</span>
+        </div>
+        <h3>Carga sai</h3>
+        <p class="estacao-pergunta">A Schulz sabe o que efetivamente saiu, e para onde?</p>
+
+        <div class="estacao-states">
+          <div class="estacao-state asis">
+            <div class="label">Hoje</div>
+            <p>Quando a carga sai do depósito Censos, a operação é desconectada. Romaneios são físicos, baixa é manual. Endereço de entrega divergente do fiscal é alterado por e-mail. Regras específicas por cliente vão soltas pra transportadora.</p>
+          </div>
+          <div class="estacao-state tobe">
+            <div class="label">Com o redesenho</div>
+            <p>Censos opera como usuário externo do Lincros, faz baixa em tempo real. Endereço de entrega tem campo dedicado, alimentado pela integração. Regras por cliente cadastradas como Instruções, disparadas automaticamente a cada embarque.</p>
+          </div>
+        </div>
+
+        <div class="estacao-meta">
+          <span class="estacao-tag area">Censos · Vendas</span>
+          <span class="estacao-tag tech">Usuário externo · Instruções</span>
+        </div>
+      </div>
+
+      <!-- ESTAÇÃO 4 -->
+      <div class="estacao">
+        <div class="estacao-num">
+          <span class="badge">4</span>
+          <span class="step">Estação 04 / 06</span>
+        </div>
+        <h3>Carga viaja</h3>
+        <p class="estacao-pergunta">A Schulz sabe onde está, e quando chega?</p>
+
+        <div class="estacao-states">
+          <div class="estacao-state asis">
+            <div class="label">Hoje</div>
+            <p>Vendas consulta 7 portais de transportadoras 10 vezes por dia. RVA acompanha coletas reversas por e-mail. Cliente final liga pedindo status que a Schulz também não tem. Ninguém vê a operação no mesmo lugar ao mesmo tempo.</p>
+          </div>
+          <div class="estacao-state tobe">
+            <div class="label">Com o redesenho</div>
+            <p>Torre única no Lincros via padrão EDI Proceda. Cada transportadora tem de/para configurado entre sua nomenclatura e o padrão Schulz. Cliente recebe notificação direto. Equipe interna deixa de ser ponto de consulta e vira ponto de exceção.</p>
+          </div>
+        </div>
+
+        <div class="estacao-meta">
+          <span class="estacao-tag area">Vendas · RVA</span>
+          <span class="estacao-tag tech">EDI Proceda · Torre única</span>
+        </div>
+      </div>
+
+      <!-- ESTAÇÃO 5 -->
+      <div class="estacao">
+        <div class="estacao-num">
+          <span class="badge">5</span>
+          <span class="step">Estação 05 / 06</span>
+        </div>
+        <h3>Carga é entregue</h3>
+        <p class="estacao-pergunta">A Schulz consegue provar o SLA?</p>
+
+        <div class="estacao-states">
+          <div class="estacao-state asis">
+            <div class="label">Hoje</div>
+            <p>20 a 30% das entregas têm agendamento feito pela transportadora direto com o cliente, sem participação do embarcador. Atraso real e atraso justificado se misturam. Sem evidência sistêmica, contestar performance vira jogo de palavra.</p>
+          </div>
+          <div class="estacao-state tobe">
+            <div class="label">Com o redesenho</div>
+            <p>Equipe Schulz cria a instrução de agendamento no Lincros, valida com o cliente e envia para a transportadora. Sistema mantém histórico de previsão original e data reagendada. SLA passa a ter base documental, contestação tem prova.</p>
+          </div>
+        </div>
+
+        <div class="estacao-meta">
+          <span class="estacao-tag area">Vendas</span>
+          <span class="estacao-tag tech">Agendamento sistêmico</span>
+        </div>
+      </div>
+
+      <!-- ESTAÇÃO 6 -->
+      <div class="estacao">
+        <div class="estacao-num">
+          <span class="badge">6</span>
+          <span class="step">Estação 06 / 06</span>
+        </div>
+        <h3>Frete é pago</h3>
+        <p class="estacao-pergunta">A Schulz pagou só o que devia?</p>
+
+        <div class="estacao-states">
+          <div class="estacao-state asis">
+            <div class="label">Hoje</div>
+            <p>CT-e dá entrada manual no fiscal. Taxas extras vão validadas por e-mail. Pré-fatura funciona pra fracionado, não pra lotação. Documentos chegam ao Financeiro com 3 dias do vencimento, sem janela de tratativa real.</p>
+          </div>
+          <div class="estacao-state tobe">
+            <div class="label">Com o redesenho</div>
+            <p>CT-e integra automático no ERP. Sistema audita contra tabela com tolerância configurável e cubagem parametrizada por transportadora. Painel de divergências com responsável e prazo. Fatura integra 10 a 20 dias antes do vencimento, já auditada.</p>
+          </div>
+        </div>
+
+        <div class="estacao-meta">
+          <span class="estacao-tag area">Fiscal · Controladoria · Financeiro</span>
+          <span class="estacao-tag tech">Auditoria automatizada</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="jornada-progress">
+      <span>Estação <strong id="estacaoAtual" style="color: #fff;">1</strong> de 6</span>
+      <div class="arrows">
+        <button class="arrow" id="estPrev" aria-label="Estação anterior">
+          <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+        </button>
+        <button class="arrow" id="estNext" aria-label="Próxima estação">
+          <svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- O FIO INVISÍVEL -->
+  <section class="fio-section" id="fio">
+    <div class="fio-content">
+      <div class="eyebrow reveal">A virada</div>
+      <h2 class="reveal delay-1">Cada estação se conecta<br>à seguinte por <em>um fio</em>.</h2>
+      <p class="quote reveal delay-2">Quando o fio é <span class="green">digital</span>, o controle é total.<br>Quando o fio é <span class="red">e-mail</span>, o controle escapa.</p>
+      <p class="lead reveal delay-3" style="margin: 0 auto;">Hoje, das 5 conexões entre as 6 estações, 4 são feitas por e-mail e WhatsApp. Apenas 1 é sistema.</p>
+
+      <div class="fio-diagram reveal delay-4">
+        <div class="fio-diagram-title warn" id="fioTitle">Hoje, 4 dos 5 fios são e-mail e WhatsApp</div>
+
+        <div class="fio-stations" id="fioStations">
+          <div class="fio-station active">
+            <div class="fio-circle">1</div>
+            <div class="fio-label">Pedido entra</div>
+          </div>
+          <div class="fio-link email">
+            <div class="fio-link-line"></div>
+            <div class="fio-link-emoji">✉</div>
+          </div>
+          <div class="fio-station active">
+            <div class="fio-circle">2</div>
+            <div class="fio-label">Contratada</div>
+          </div>
+          <div class="fio-link email">
+            <div class="fio-link-line"></div>
+            <div class="fio-link-emoji">✉</div>
+          </div>
+          <div class="fio-station active">
+            <div class="fio-circle">3</div>
+            <div class="fio-label">Sai</div>
+          </div>
+          <div class="fio-link email">
+            <div class="fio-link-line"></div>
+            <div class="fio-link-emoji">✉</div>
+          </div>
+          <div class="fio-station active">
+            <div class="fio-circle">4</div>
+            <div class="fio-label">Viaja</div>
+          </div>
+          <div class="fio-link email">
+            <div class="fio-link-line"></div>
+            <div class="fio-link-emoji">✉</div>
+          </div>
+          <div class="fio-station active">
+            <div class="fio-circle">5</div>
+            <div class="fio-label">Entregue</div>
+          </div>
+          <div class="fio-link system">
+            <div class="fio-link-line"></div>
+            <div class="fio-link-emoji">⚡</div>
+          </div>
+          <div class="fio-station active">
+            <div class="fio-circle">6</div>
+            <div class="fio-label">Pago</div>
+          </div>
+        </div>
+
+        <div class="fio-toggle-wrap">
+          <div class="fio-toggle">
+            <button class="active" data-state="now">Hoje</button>
+            <button data-state="future">Com o redesenho</button>
+          </div>
+        </div>
+
+        <div class="fio-summary">
+          <div class="fio-summary-item warn" id="fioWarn">
+            <div class="num">4</div>
+            <div class="desc">conexões por e-mail e WhatsApp</div>
+          </div>
+          <div class="fio-summary-item ok" id="fioOk">
+            <div class="num">1</div>
+            <div class="desc">conexão sistêmica</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- A PEÇA QUE NINGUÉM VÊ -->
+  <section class="peca-section" id="peca">
+    <div class="peca-content">
+      <div class="eyebrow reveal">O ato 2</div>
+      <h2 class="reveal delay-1">Mesmo digitalizando todas as estações,<br>falta uma peça.</h2>
+
+      <div class="peca-card reveal delay-2">
+        <span class="ribbon">A peça invisível</span>
+        <h3>O sistema funciona,<br>mas a transportadora precisa <em>alimentar ele</em>.</h3>
+
+        <p>Se a Schulz parametrizar o Lincros nas 6 estações mas a transportadora continuar mandando status só por e-mail, a torre vai existir vazia. <strong>O sistema não força a transportadora a publicar nada.</strong> Quem força é o contrato.</p>
+
+        <p>É aqui que o redesenho deixa de ser implementação de software e vira <strong>governança da malha de transporte</strong>. A peça que falta não está em TI, está em Compras.</p>
+
+        <div class="peca-divisao">
+          <div class="ferramenta">
+            <h5>O que o Lincros resolve</h5>
+            <p>Estações 1 a 6, parametrização e treinamento. Trabalho técnico do time Lincros.</p>
+          </div>
+          <div class="governanca">
+            <h5>O que o contrato resolve</h5>
+            <p>A transportadora se obriga a publicar status no sistema da Schulz. Sem isso, sem pagamento.</p>
+          </div>
+        </div>
+
+        <p style="margin-top: 32px;">A formulação contratual prevê o método de envio (EDI Proceda ou input manual no portal), os tipos de ocorrência mínimos exigidos, o prazo de publicação após o evento e a consequência do descumprimento. Em fase 2, evolui para o princípio <strong>"no track, no pay"</strong>: sem publicação, sem pagamento de frete.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DECISÕES EXECUTIVAS -->
+  <section class="decisoes-section" id="decisoes">
+    <div class="container">
+      <div class="eyebrow reveal">O que está em jogo</div>
+      <h2 class="reveal delay-1">3 decisões<br>para destravar o redesenho.</h2>
+      <p class="lead reveal delay-2" style="margin-top: 20px;">Não são 7 dores, não são 5 princípios. São 3 decisões executivas que precisam ser tomadas para o projeto entrar em campo.</p>
+
+      <div class="decisoes-grid">
+        <div class="decisao reveal">
+          <div class="num">1</div>
+          <h4>Aprovar parametrização do Lincros nas 6 estações</h4>
+          <p class="descricao">Sistema, integrações, usuários, EDI Proceda, Ordem de Coleta, painéis. Habilita controle ponta a ponta da carga.</p>
+          <div class="meta">
+            <div class="meta-row"><span class="key">Responsável</span><span class="val">Projetos Lincros + TI Schulz</span></div>
+            <div class="meta-row"><span class="key">Prazo</span><span class="val">90 dias</span></div>
+            <div class="meta-row"><span class="key">Impacto</span><span class="val">Estações 1 a 6</span></div>
+          </div>
+        </div>
+
+        <div class="decisao reveal delay-1">
+          <div class="num">2</div>
+          <h4>Aprovar revisão da minuta de homologação</h4>
+          <p class="descricao">Cláusula contratual obriga a transportadora a publicar status no sistema do embarcador. Aplicada a contratos novos e renovações.</p>
+          <div class="meta">
+            <div class="meta-row"><span class="key">Responsável</span><span class="val">Compras · Denise</span></div>
+            <div class="meta-row"><span class="key">Prazo</span><span class="val">60 dias</span></div>
+            <div class="meta-row"><span class="key">Impacto</span><span class="val">Sustenta a torre no tempo</span></div>
+          </div>
+        </div>
+
+        <div class="decisao reveal delay-2">
+          <div class="num">3</div>
+          <h4>Aprovar evolução para "no track, no pay"</h4>
+          <p class="descricao">Fase 2. Vincula liberação de pagamento de frete à publicação adequada das ocorrências do embarque. Tração contratual real.</p>
+          <div class="meta">
+            <div class="meta-row"><span class="key">Responsável</span><span class="val">Diretoria + Compras + Financeiro</span></div>
+            <div class="meta-row"><span class="key">Prazo</span><span class="val">6 meses pós-fase 1</span></div>
+            <div class="meta-row"><span class="key">Impacto</span><span class="val">Aderência total da malha</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CRONOGRAMA SWIMLANE -->
+  <section class="crono-section" id="crono">
+    <div class="container">
+      <div class="eyebrow reveal">Como entra em campo</div>
+      <h2 class="reveal delay-1">Duas frentes em paralelo,<br>uma data alvo única.</h2>
+      <p class="lead reveal delay-2" style="margin-top: 20px;">Sistema e contrato avançam em ritmos diferentes mas convergem na mesma data de entrada em vigor. Sem isso, a torre fica pronta antes do contrato e não opera.</p>
+
+      <div class="swimlane">
+        <div class="swimlane-row sistema reveal">
+          <div class="swimlane-head">
+            <span class="lane-tag">Sistema</span>
+            <h4>Time Lincros + TI Schulz</h4>
+          </div>
+          <div class="swimlane-steps">
+            <div class="swimlane-step">
+              <div class="step-num">Passo 1</div>
+              <div class="step-title">Parametrizar tabelas de frete</div>
+              <div class="step-desc">Cadastro por transportadora, incluindo cubagem.</div>
+            </div>
+            <div class="swimlane-step">
+              <div class="step-num">Passo 2</div>
+              <div class="step-title">Integrar TOTVS / Lincros</div>
+              <div class="step-desc">Romaneio e CT-e. Romaneio do TOTVS vira Embarque no Lincros.</div>
+            </div>
+            <div class="swimlane-step">
+              <div class="step-num">Passo 3</div>
+              <div class="step-title">Habilitar usuário Censos</div>
+              <div class="step-desc">Baixa em tempo real e agendamento de cargas dedicadas.</div>
+            </div>
+            <div class="swimlane-step">
+              <div class="step-num">Passo 4</div>
+              <div class="step-title">Configurar EDI Proceda</div>
+              <div class="step-desc">De/para por transportadora entre nomenclatura e padrão Schulz.</div>
+            </div>
+            <div class="swimlane-step">
+              <div class="step-num">Passo 5</div>
+              <div class="step-title">Ativar Ordem de Coleta</div>
+              <div class="step-desc">Carga expressa por fluxo sistêmico, com fallback de transportadoras.</div>
+            </div>
+            <div class="swimlane-step">
+              <div class="step-num">Passo 6</div>
+              <div class="step-title">Ativar painel de divergências</div>
+              <div class="step-desc">Controladoria com status, responsável e prazo de tratativa.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="swimlane-conv reveal">Sistema parametrizado e contrato revisado entram em vigor juntos</div>
+
+        <div class="swimlane-row governanca reveal">
+          <div class="swimlane-head">
+            <span class="lane-tag">Governança</span>
+            <h4>Compras Schulz · Denise</h4>
+          </div>
+          <div class="swimlane-steps">
+            <div class="swimlane-step">
+              <div class="step-num">Passo 7</div>
+              <div class="step-title">Nova cláusula de homologação</div>
+              <div class="step-desc">Transportadoras novas e renovadas assinam obrigação de publicar status.</div>
+            </div>
+            <div class="swimlane-step">
+              <div class="step-num">Passo 8</div>
+              <div class="step-title">Aditivo para base existente</div>
+              <div class="step-desc">Revisão das transportadoras já contratadas com cláusula de publicação.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPIs -->
+  <section class="kpi-section" id="kpis">
+    <div class="container">
+      <div class="eyebrow cyan reveal">Como medir</div>
+      <h2 class="reveal delay-1">5 indicadores<br>para a fase pós-implantação.</h2>
+      <p class="lead reveal delay-2" style="margin-top: 20px;">Leitura mensal. Comparam o estado atual com a meta pra primeiros 90 dias após a entrada em vigor.</p>
+
+      <div class="kpi-grid">
+        <div class="kpi-card reveal">
+          <div class="kpi-icon">%</div>
+          <h5>Embarques com status no prazo</h5>
+          <div class="kpi-sub">aderência da malha</div>
+          <div class="kpi-comparison">
+            <div><div class="label">Hoje</div><div class="val now">~10%</div></div>
+            <div><div class="label">Meta 90d</div><div class="val target">85%</div></div>
+          </div>
+        </div>
+
+        <div class="kpi-card reveal delay-1">
+          <div class="kpi-icon">⏱</div>
+          <h5>Ocorrência → publicação</h5>
+          <div class="kpi-sub">velocidade da informação</div>
+          <div class="kpi-comparison">
+            <div><div class="label">Hoje</div><div class="val now">+24h</div></div>
+            <div><div class="label">Meta 90d</div><div class="val target">≤ 4h</div></div>
+          </div>
+        </div>
+
+        <div class="kpi-card reveal delay-2">
+          <div class="kpi-icon">⚠</div>
+          <h5>Divergências identificadas</h5>
+          <div class="kpi-sub">por categoria</div>
+          <div class="kpi-comparison">
+            <div><div class="label">Hoje</div><div class="val now">subjetivo</div></div>
+            <div><div class="label">Meta 90d</div><div class="val target">100% rastreado</div></div>
+          </div>
+        </div>
+
+        <div class="kpi-card reveal delay-3">
+          <div class="kpi-icon">$</div>
+          <h5>Saving auditoria de frete</h5>
+          <div class="kpi-sub">cobrança contestada</div>
+          <div class="kpi-comparison">
+            <div><div class="label">Hoje</div><div class="val now">não medido</div></div>
+            <div><div class="label">Meta 90d</div><div class="val target">2 a 4% sobre frete</div></div>
+          </div>
+        </div>
+
+        <div class="kpi-card reveal">
+          <div class="kpi-icon">d</div>
+          <h5>Integração → liberação</h5>
+          <div class="kpi-sub">janela de tratativa</div>
+          <div class="kpi-comparison">
+            <div><div class="label">Hoje</div><div class="val now">3 dias</div></div>
+            <div><div class="label">Meta 90d</div><div class="val target">10-20 dias</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <h2>Pronto para devolver<br><span class="accent">o controle pra Schulz.</span></h2>
+    <p>O Lincros sozinho entrega ferramenta. A Consolida traz a governança da malha que faz a ferramenta operar no tempo. Essa é a diferença.</p>
+    <div class="contacts">
+      <div class="contact-tag">@oconsolida</div>
+      <div class="contact-tag">www.oconsolida.com.br</div>
+      <div class="contact-tag">consolida-oficial</div>
+      <div class="contact-tag">47 98433 5969</div>
+    </div>
+    <div class="footer-meta">CONSOLIDA × LINCROS · APRESENTAÇÃO 30 ABR 2026</div>
+  </div>
+</footer>
+
+<script>
+  // Progress bar
+  const progress = document.getElementById('progress');
+  const updateProgress = () => {
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+    progress.style.width = (scrolled * 100) + '%';
+  };
+
+  // Reveal
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealObserver.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+  document.querySelectorAll('.reveal:not(.in)').forEach(el => revealObserver.observe(el));
+
+  // Counter
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.counter);
+        const duration = 1400;
+        const start = performance.now();
+        const animate = (now) => {
+          const t = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.round(target * eased);
+          if (t < 1) requestAnimationFrame(animate);
+        };
+        requestAnimationFrame(animate);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-counter]').forEach(el => counterObserver.observe(el));
+
+  // ========== JORNADA HORIZONTAL ==========
+  const rail = document.getElementById('jornadaRail');
+  const estPrev = document.getElementById('estPrev');
+  const estNext = document.getElementById('estNext');
+  const estacaoAtual = document.getElementById('estacaoAtual');
+
+  function getEstacaoIndex() {
+    const cards = rail.querySelectorAll('.estacao');
+    let closest = 0;
+    let minDist = Infinity;
+    cards.forEach((c, i) => {
+      const d = Math.abs(c.getBoundingClientRect().left - rail.getBoundingClientRect().left - 32);
+      if (d < minDist) { minDist = d; closest = i; }
+    });
+    return closest;
+  }
+
+  function scrollToEstacao(idx) {
+    const cards = rail.querySelectorAll('.estacao');
+    const clamped = Math.max(0, Math.min(cards.length - 1, idx));
+    const target = cards[clamped];
+    if (!target) return;
+    rail.scrollTo({ left: target.offsetLeft - 32, behavior: 'smooth' });
+  }
+
+  estPrev.addEventListener('click', () => scrollToEstacao(getEstacaoIndex() - 1));
+  estNext.addEventListener('click', () => scrollToEstacao(getEstacaoIndex() + 1));
+
+  rail.addEventListener('scroll', () => {
+    estacaoAtual.textContent = getEstacaoIndex() + 1;
+  }, { passive: true });
+
+  // ========== O FIO TOGGLE ==========
+  const fioToggle = document.querySelectorAll('.fio-toggle button');
+  const fioStations = document.getElementById('fioStations');
+  const fioTitle = document.getElementById('fioTitle');
+  const fioWarn = document.getElementById('fioWarn');
+  const fioOk = document.getElementById('fioOk');
+
+  fioToggle.forEach(btn => {
+    btn.addEventListener('click', () => {
+      fioToggle.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const state = btn.dataset.state;
+
+      const links = fioStations.querySelectorAll('.fio-link');
+      const emojis = fioStations.querySelectorAll('.fio-link-emoji');
+
+      if (state === 'now') {
+        links.forEach((l, i) => {
+          if (i < 4) { l.className = 'fio-link email'; emojis[i].textContent = '✉'; }
+          else { l.className = 'fio-link system'; emojis[i].textContent = '⚡'; }
+        });
+        fioTitle.textContent = 'Hoje, 4 dos 5 fios são e-mail e WhatsApp';
+        fioTitle.className = 'fio-diagram-title warn';
+        fioWarn.querySelector('.num').textContent = '4';
+        fioWarn.querySelector('.desc').textContent = 'conexões por e-mail e WhatsApp';
+        fioOk.querySelector('.num').textContent = '1';
+        fioOk.querySelector('.desc').textContent = 'conexão sistêmica';
+      } else {
+        links.forEach((l, i) => {
+          l.className = 'fio-link system';
+          emojis[i].textContent = '⚡';
+        });
+        fioTitle.textContent = 'Com o redesenho, todas as 5 conexões são sistêmicas';
+        fioTitle.className = 'fio-diagram-title success';
+        fioWarn.querySelector('.num').textContent = '0';
+        fioWarn.querySelector('.desc').textContent = 'conexões por e-mail e WhatsApp';
+        fioOk.querySelector('.num').textContent = '5';
+        fioOk.querySelector('.desc').textContent = 'conexões sistêmicas';
+      }
+    });
+  });
+
+  // ========== SECTION NAV ==========
+  const allSections = Array.from(document.querySelectorAll('main section[id]'));
+  const secnav = document.getElementById('secnav');
+  const secnavPrev = document.getElementById('secnavPrev');
+  const secnavNext = document.getElementById('secnavNext');
+  const secnavCurrent = document.getElementById('secnavCurrent');
+  const secnavTotal = document.getElementById('secnavTotal');
+  secnavTotal.textContent = allSections.length;
+
+  function getCurrentSection() {
+    const scrollY = window.scrollY;
+    const pivot = window.innerHeight * 0.35;
+    let current = 0;
+    for (let i = 0; i < allSections.length; i++) {
+      if (allSections[i].offsetTop - pivot <= scrollY) current = i;
+      else break;
+    }
+    return current;
+  }
+  function scrollToSection(idx) {
+    const clamped = Math.max(0, Math.min(allSections.length - 1, idx));
+    const target = allSections[clamped];
+    if (!target) return;
+    window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+  }
+  function updateSecnav() {
+    const idx = getCurrentSection();
+    secnavCurrent.textContent = idx + 1;
+    secnavPrev.disabled = idx === 0;
+    const isLast = idx === allSections.length - 1;
+    if (isLast) {
+      secnavNext.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>';
+      secnavNext.dataset.action = 'top';
+    } else {
+      secnavNext.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>';
+      secnavNext.dataset.action = 'next';
+    }
+    secnav.classList.add('visible');
+  }
+  secnavPrev.addEventListener('click', () => scrollToSection(getCurrentSection() - 1));
+  secnavNext.addEventListener('click', () => {
+    if (secnavNext.dataset.action === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      scrollToSection(getCurrentSection() + 1);
+    }
+  });
+
+  // Keyboard
+  let kbDebounce = false;
+  document.addEventListener('keydown', (e) => {
+    const tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea') return;
+
+    // If inside jornada section, arrows control horizontal scroll
+    const jornadaRect = document.getElementById('jornada').getBoundingClientRect();
+    const insideJornada = jornadaRect.top < window.innerHeight * 0.5 && jornadaRect.bottom > window.innerHeight * 0.5;
+
+    let handled = false;
+    if (insideJornada && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+      if (!kbDebounce) {
+        scrollToEstacao(getEstacaoIndex() + (e.key === 'ArrowRight' ? 1 : -1));
+        handled = true;
+      }
+    } else if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+      if (!kbDebounce) { scrollToSection(getCurrentSection() + 1); handled = true; }
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      if (!kbDebounce) { scrollToSection(getCurrentSection() - 1); handled = true; }
+    }
+    if (handled) {
+      e.preventDefault();
+      kbDebounce = true;
+      setTimeout(() => kbDebounce = false, 600);
+    }
+  });
+
+  window.addEventListener('scroll', () => { updateProgress(); updateSecnav(); }, { passive: true });
+  updateProgress();
+  setTimeout(updateSecnav, 100);
+</script>
+</body>
+</html>
