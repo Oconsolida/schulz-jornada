@@ -329,8 +329,8 @@
   /* JORNADA HORIZONTAL */
   .jornada-section {
     padding: 0;
-    background: var(--bg-deep);
-    color: #fff;
+    background: var(--bg-soft);
+    color: var(--text);
     position: relative;
     overflow: hidden;
   }
@@ -341,14 +341,14 @@
     position: relative;
     z-index: 2;
   }
-  .jornada-intro h2 { color: #fff; margin-bottom: 20px; }
+  .jornada-intro h2 { color: var(--text); margin-bottom: 20px; }
   .jornada-intro h2 .accent {
     background: linear-gradient(135deg, var(--purple-soft), var(--cyan-soft));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-  .jornada-intro p { color: rgba(255,255,255,0.7); font-size: 18px; max-width: 720px; }
+  .jornada-intro p { color: var(--text-mid); font-size: 18px; max-width: 720px; }
 
   .jornada-rail {
     display: flex;
@@ -360,18 +360,18 @@
     padding: 40px 32px 100px;
     scroll-padding-left: 32px;
     scrollbar-width: thin;
-    scrollbar-color: rgba(255,255,255,0.2) transparent;
+    scrollbar-color: var(--border-strong) transparent;
   }
   .jornada-rail::-webkit-scrollbar { height: 8px; }
-  .jornada-rail::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); }
-  .jornada-rail::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
-  .jornada-rail::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+  .jornada-rail::-webkit-scrollbar-track { background: var(--bg-soft); }
+  .jornada-rail::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+  .jornada-rail::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
 
   .estacao {
     flex: 0 0 540px;
     scroll-snap-align: start;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
     border-radius: 28px;
     padding: 40px;
     backdrop-filter: blur(20px);
@@ -381,8 +381,8 @@
   }
   .estacao:hover {
     transform: translateY(-4px);
-    border-color: rgba(91,69,245,0.4);
-    background: rgba(91,69,245,0.05);
+    border-color: var(--purple);
+    background: var(--bg-tint);
   }
   @media (max-width: 720px) {
     .estacao { flex: 0 0 88vw; padding: 32px 28px; }
@@ -408,7 +408,7 @@
   .estacao-num .step {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    color: rgba(255,255,255,0.5);
+    color: var(--text-dim);
     letter-spacing: 0.15em;
     text-transform: uppercase;
   }
@@ -421,11 +421,11 @@
 
   .estacao-pergunta {
     font-style: italic;
-    color: var(--cyan-soft);
+    color: var(--cyan);
     font-size: 15px;
     margin-bottom: 28px;
     padding-bottom: 28px;
-    border-bottom: 1px dashed rgba(255,255,255,0.12);
+    border-bottom: 1px dashed var(--border);
     line-height: 1.5;
   }
 
@@ -437,7 +437,7 @@
   .estacao-state {
     padding: 18px 20px;
     border-radius: 14px;
-    background: rgba(255,255,255,0.03);
+    background: var(--bg-soft);
     border-left: 3px solid;
   }
   .estacao-state.asis { border-left-color: var(--warn); }
@@ -454,7 +454,7 @@
     gap: 8px;
   }
   .estacao-state.asis .label { color: var(--warn); }
-  .estacao-state.tobe .label { color: var(--cyan-soft); }
+  .estacao-state.tobe .label { color: var(--cyan); }
   .estacao-state .label::before {
     content: '';
     width: 6px; height: 6px;
@@ -462,7 +462,7 @@
     background: currentColor;
   }
   .estacao-state p {
-    color: rgba(255,255,255,0.85);
+    color: var(--text);
     font-size: 14.5px;
     line-height: 1.5;
   }
@@ -473,7 +473,7 @@
     gap: 8px;
     margin-top: 24px;
     padding-top: 24px;
-    border-top: 1px dashed rgba(255,255,255,0.12);
+    border-top: 1px dashed var(--border);
   }
   .estacao-tag {
     font-family: 'JetBrains Mono', monospace;
@@ -482,11 +482,11 @@
     letter-spacing: 0.1em;
     padding: 5px 10px;
     border-radius: 999px;
-    background: rgba(255,255,255,0.06);
-    color: rgba(255,255,255,0.7);
+    background: var(--bg-soft);
+    color: var(--text-mid);
     font-weight: 600;
   }
-  .estacao-tag.area { background: rgba(91,69,245,0.18); color: var(--purple-soft); }
+  .estacao-tag.area { background: var(--purple-tint); color: var(--purple); }
   .estacao-tag.tech { background: rgba(0,184,184,0.18); color: var(--cyan-soft); }
 
   .jornada-progress {
@@ -496,7 +496,7 @@
     padding: 0 32px 60px;
     max-width: var(--max-w);
     margin: 0 auto;
-    color: rgba(255,255,255,0.6);
+    color: var(--text-dim);
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     letter-spacing: 0.1em;
@@ -510,8 +510,8 @@
   .jornada-progress .arrow {
     width: 36px; height: 36px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
     color: #fff;
     cursor: pointer;
     display: inline-flex;
@@ -1047,11 +1047,11 @@
   footer {
     border-top: 1px solid var(--border);
     padding: 120px 32px 60px;
-    background: var(--bg-deep);
-    color: #fff;
+    background: var(--bg-soft);
+    color: var(--text);
     text-align: center;
   }
-  footer h2 { color: #fff; margin-bottom: 16px; }
+  footer h2 { color: var(--text); margin-bottom: 16px; }
   footer .accent {
     background: linear-gradient(135deg, var(--purple-soft), var(--cyan-soft));
     -webkit-background-clip: text;
@@ -1059,7 +1059,7 @@
     color: transparent;
   }
   footer p {
-    color: rgba(255,255,255,0.65);
+    color: var(--text-mid);
     margin-bottom: 40px;
     max-width: 600px;
     margin-left: auto;
@@ -1092,18 +1092,18 @@
   }
   .contact-tag {
     padding: 12px 22px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
     border-radius: 999px;
     font-size: 13px;
     font-family: 'JetBrains Mono', monospace;
-    color: rgba(255,255,255,0.8);
+    color: var(--text-mid);
     font-weight: 500;
   }
   .footer-meta {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    color: rgba(255,255,255,0.4);
+    color: var(--text-dim);
     text-transform: uppercase;
     letter-spacing: 0.15em;
   }
@@ -1241,8 +1241,8 @@
         </div>
         <div class="stat reveal delay-3">
           <div class="stat-num"><span data-counter="30">0</span><span class="unit"> %</span></div>
-          <div class="stat-label">Entregas sem controle</div>
-          <div class="stat-sub">agendamento da transportadora</div>
+          <div class="stat-label">Entregas com agendamento externo</div>
+          <div class="stat-sub">agendamento feito pela transportadora</div>
         </div>
       </div>
 
@@ -1255,9 +1255,9 @@
   <!-- JORNADA HORIZONTAL -->
   <section class="jornada-section" id="jornada">
     <div class="jornada-intro">
-      <div class="eyebrow dark reveal" style="background: rgba(255,255,255,0.08); color: var(--cyan-soft);">A jornada</div>
+      <div class="eyebrow dark reveal" style="background: var(--cyan-tint); color: var(--cyan);">A jornada</div>
       <h2 class="reveal delay-1">6 processos,<br><span class="accent">do pedido ao pagamento.</span></h2>
-      <p class="reveal delay-2">Cada processo tem uma pergunta de controle. Hoje, em quatro delas a resposta é "não temos como saber". Arraste para o lado, ou use as setas.</p>
+      <p class="reveal delay-2">Cada processo tem uma pergunta de controle. Hoje, em quatro delas a resposta é "hoje é feito de forma manual". Arraste para o lado, ou use as setas.</p>
     </div>
 
     <div class="jornada-rail" id="jornadaRail">
@@ -1438,7 +1438,7 @@
     <div class="fio-content">
       <div class="eyebrow reveal">A virada</div>
       <h2 class="reveal delay-1">Cada processo se conecta<br>à seguinte por <em>um fio</em>.</h2>
-      <p class="quote reveal delay-2">Quando o fio é <span class="green">digital</span>, o controle é total.<br>Quando o fio é <span class="red">e-mail</span>, o controle escapa.</p>
+      <p class="quote reveal delay-2">Quando o fio é <span class="green">digital</span>, o controle é total.<br>Quando o fio é <span class="red">e-mail</span>, o processo é manual.</p>
       <p class="lead reveal delay-3" style="margin: 0 auto;">Hoje, das 5 conexões entre os 6 processos, 4 são feitas por e-mail e WhatsApp. Apenas 1 é sistema.</p>
 
       <div class="fio-diagram reveal delay-4">
@@ -1516,15 +1516,15 @@
   <section class="peca-section" id="peca">
     <div class="peca-content">
       <div class="eyebrow reveal">O ato 2</div>
-      <h2 class="reveal delay-1">Mesmo digitalizando todos os processos,<br>falta uma peça.</h2>
+      <h2 class="reveal delay-1">Mesmo digitalizando todos os processos,<br>há um complemento importante.</h2>
 
       <div class="peca-card reveal delay-2">
-        <span class="ribbon">A peça invisível</span>
+        <span class="ribbon">O complemento contratual</span>
         <h3>O sistema funciona,<br>mas a transportadora precisa <em>alimentar ele</em>.</h3>
 
-        <p>Se a Schulz parametrizar o Lincros nos 6 processos mas a transportadora continuar mandando status só por e-mail, a torre vai existir vazia. <strong>O sistema não força a transportadora a publicar nada.</strong> Quem força é o contrato.</p>
+        <p>Se a Schulz parametrizar o Lincros nos 6 processos mas a transportadora continuar mandando status só por e-mail, a torre opera com informações parciais. <strong>A publicação de status pela transportadora depende de uma exigência contratual</strong>, que complementa a parametrização do sistema.</p>
 
-        <p>É aqui que o redesenho deixa de ser implementação de software e vira <strong>governança da malha de transporte</strong>. A peça que falta não está em TI, está em Compras.</p>
+        <p>É aqui que o redesenho deixa de ser implementação de software e vira <strong>governança da malha de transporte</strong>. Essa evolução depende de uma cláusula contratual no processo de homologação.</p>
 
         <div class="peca-divisao">
           <div class="ferramenta">
@@ -1546,8 +1546,8 @@
   <section class="decisoes-section" id="decisoes">
     <div class="container">
       <div class="eyebrow reveal">O que está em jogo</div>
-      <h2 class="reveal delay-1">3 decisões<br>para destravar o redesenho.</h2>
-      <p class="lead reveal delay-2" style="margin-top: 20px;">Não são 7 dores, não são 5 princípios. São 3 decisões executivas que precisam ser tomadas para o projeto entrar em campo.</p>
+      <h2 class="reveal delay-1">3 próximos passos<br>para evoluir o processo.</h2>
+      <p class="lead reveal delay-2" style="margin-top: 20px;">Não são 7 dores, não são 5 princípios. São 3 etapas sugeridas para que o processo entre em operação de forma estruturada.</p>
 
       <div class="decisoes-grid">
         <div class="decisao reveal">
@@ -1719,6 +1719,129 @@
   </section>
 
 </main>
+
+  <!-- EQUIPE E PARTICIPANTES -->
+  <section id="equipe" class="alt">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow reveal">Registro da reunião</div>
+        <h2 class="reveal delay-1">Equipe do projeto<br>e participantes.</h2>
+        <p class="lead reveal delay-2" style="margin-top: 20px;">Reunião de mapeamento realizada em 18 de março de 2026, na unidade de Joinville/SC.</p>
+      </div>
+
+      <div class="compare reveal delay-3">
+        <div class="compare-row head">
+          <div class="compare-cell">Área</div>
+          <div class="compare-cell">Gestor</div>
+          <div class="compare-cell" style="text-align:center;">Horário</div>
+          <div class="compare-cell">Participantes</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell area">Logística</div>
+          <div class="compare-cell asis">Carlos Dias Campos</div>
+          <div class="compare-cell" style="text-align:center;">9h15 – 12h</div>
+          <div class="compare-cell tobe">Edgar (coord.), Rodrigo (inventário), Jackson (CD), Elenilson (PCP), Lincon (ger. Compressores). Carlos Dias não participou.</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell area">Compras</div>
+          <div class="compare-cell asis">Eduardo Bertolotti</div>
+          <div class="compare-cell" style="text-align:center;">9h45 – 10h15</div>
+          <div class="compare-cell tobe">Cida, Denise</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell area">Rec. Fiscal</div>
+          <div class="compare-cell asis">Anselmo</div>
+          <div class="compare-cell" style="text-align:center;">10h15 – 10h45</div>
+          <div class="compare-cell tobe">—</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell area">Financeiro</div>
+          <div class="compare-cell asis">Vitor</div>
+          <div class="compare-cell" style="text-align:center;">10h45 – 11h15</div>
+          <div class="compare-cell tobe">Eduardo (analista)</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell area">Controladoria</div>
+          <div class="compare-cell asis">Luciana</div>
+          <div class="compare-cell" style="text-align:center;">11h15 – 11h45</div>
+          <div class="compare-cell tobe">Maiara (analista)</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell area">TIC</div>
+          <div class="compare-cell asis">Gerson</div>
+          <div class="compare-cell" style="text-align:center;">9h – 12h</div>
+          <div class="compare-cell tobe">Sidnei, Ricardo, Cláudio</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell area">RVA</div>
+          <div class="compare-cell asis">Gustavo</div>
+          <div class="compare-cell" style="text-align:center;">—</div>
+          <div class="compare-cell tobe">Fretes de garantia e revenda reversa</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell area">Vendas / Revenda</div>
+          <div class="compare-cell asis">Claudemir</div>
+          <div class="compare-cell" style="text-align:center;">—</div>
+          <div class="compare-cell tobe">Operação Censos, agendamento, tracking</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell area">Manutenção</div>
+          <div class="compare-cell asis">João</div>
+          <div class="compare-cell" style="text-align:center;">—</div>
+          <div class="compare-cell tobe">Fora do escopo prioritário</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 48px;">
+        <h3 class="reveal" style="margin-bottom: 20px;">Detalhes operacionais complementares</h3>
+        <div class="escopo-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="escopo-card reveal">
+            <div class="escopo-badge" style="background: var(--purple-tint); color: var(--purple);">Fiscal</div>
+            <div class="escopo-text">
+              <h4>Prazo de lançamento</h4>
+              <p>48 horas para lançar o documento fiscal, ou até o vencimento do frete (o que vier primeiro).</p>
+            </div>
+          </div>
+          <div class="escopo-card reveal delay-1">
+            <div class="escopo-badge" style="background: var(--purple-tint); color: var(--purple);">Compliance</div>
+            <div class="escopo-text">
+              <h4>Modalidade FOB ↔ CIF</h4>
+              <p>Quando há troca de modalidade sem carta de correção, a auditoria precisa de evidência registrada no sistema.</p>
+            </div>
+          </div>
+          <div class="escopo-card reveal delay-2">
+            <div class="escopo-badge" style="background: var(--purple-tint); color: var(--purple);">Expedição</div>
+            <div class="escopo-text">
+              <h4>NF sem data de saída</h4>
+              <p>Faturamento antecipado gera notas sem data de saída efetiva. Integrar todas as NFs e monitorar a expedição.</p>
+            </div>
+          </div>
+          <div class="escopo-card reveal">
+            <div class="escopo-badge" style="background: var(--cyan-tint); color: var(--cyan);">Auditoria</div>
+            <div class="escopo-text">
+              <h4>Peso embalagem vs mercadoria</h4>
+              <p>Em algumas notas, o peso da embalagem já está somado ao da mercadoria. Isso pode gerar divergência falsa no cálculo de frete.</p>
+            </div>
+          </div>
+          <div class="escopo-card reveal delay-1">
+            <div class="escopo-badge" style="background: var(--cyan-tint); color: var(--cyan);">Transportadoras</div>
+            <div class="escopo-text">
+              <h4>Irapuru e Sulista</h4>
+              <p>Irapuru opera com 6 janelas diárias programadas. Sulista trabalha com agendamento por e-mail.</p>
+            </div>
+          </div>
+          <div class="escopo-card reveal delay-2">
+            <div class="escopo-badge" style="background: var(--cyan-tint); color: var(--cyan);">Origem de demanda</div>
+            <div class="escopo-text">
+              <h4>4 áreas que originam carga</h4>
+              <p>Planejamento de Produção, Planejamento de Materiais, Expedição e GAC. Cada uma pode gerar demanda de coleta.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
 <footer>
   <div class="container">
