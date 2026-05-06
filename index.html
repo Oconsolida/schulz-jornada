@@ -3,2049 +3,262 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Schulz S.A. · A jornada de uma carga</title>
+<title>Schulz S.A. · Diagnóstico de Logística de Transporte</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #fdfdfb;
-    --bg-soft: #f6f5f1;
-    --bg-deep: #0e0e1a;
-    --bg-card: #ffffff;
-    --bg-tint: #f2f0fb;
-    --bg-tint-cyan: #ecfafa;
-    --bg-tint-warn: #fdf2f4;
-    --border: #ebe9e2;
-    --border-strong: #d6d3c8;
-    --purple: #5B45F5;
-    --purple-soft: #7a67f7;
-    --purple-tint: #ebe7ff;
-    --cyan: #00B8B8;
-    --cyan-soft: #2dd0d0;
-    --cyan-tint: #d9f5f5;
-    --warn: #e84a6b;
-    --warn-tint: #fbe6ec;
-    --success: #14a878;
-    --text: #0e0e1a;
-    --text-mid: #4d4d5e;
-    --text-dim: #8a8a98;
-    --max-w: 1180px;
-    --shadow-sm: 0 1px 3px rgba(14,14,26,0.06);
-    --shadow-md: 0 6px 16px rgba(14,14,26,0.08);
-    --shadow-lg: 0 24px 48px -16px rgba(91,69,245,0.18), 0 8px 16px rgba(14,14,26,0.05);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    line-height: 1.55;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      radial-gradient(ellipse 900px 700px at 10% 0%, rgba(91,69,245,0.05), transparent 60%),
-      radial-gradient(ellipse 800px 600px at 90% 100%, rgba(0,184,184,0.04), transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
-  main { position: relative; z-index: 2; }
-
-  /* Top nav */
-  .topnav {
-    position: fixed;
-    top: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    padding: 12px 24px;
-    background: rgba(253,253,251,0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 500;
-    box-shadow: var(--shadow-md);
-  }
-  .topnav .logo {
-    display: flex; align-items: center; gap: 10px;
-    font-weight: 800; letter-spacing: -0.02em;
-    color: var(--text); font-size: 15px;
-  }
-  .topnav .logo .dot {
-    width: 10px; height: 10px;
-    border-radius: 3px;
-    background: var(--cyan);
-    box-shadow: 0 0 0 3px rgba(0,184,184,0.15);
-  }
-  .topnav .meta {
-    color: var(--text-dim);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-  @media (max-width: 720px) {
-    .topnav { gap: 14px; padding: 10px 18px; }
-    .topnav .meta { display: none; }
-  }
-
-  /* Progress bar */
-  .progress {
-    position: fixed;
-    top: 0; left: 0;
-    height: 3px;
-    width: 0%;
-    background: linear-gradient(90deg, var(--purple), var(--cyan));
-    z-index: 100;
-    transition: width 0.1s linear;
-  }
-
-  /* Section base */
-  section {
-    position: relative;
-    padding: 140px 32px;
-  }
-  section.alt { background: var(--bg-soft); }
-  .container {
-    max-width: var(--max-w);
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--purple);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-    padding: 6px 14px;
-    background: var(--purple-tint);
-    border-radius: 999px;
-  }
-  .eyebrow.cyan { color: var(--cyan); background: var(--cyan-tint); }
-  .eyebrow.warn { color: var(--warn); background: var(--warn-tint); }
-  .eyebrow.dark { background: var(--bg-deep); color: #fff; }
-
-  h1, h2, h3, h4 {
-    font-weight: 800;
-    letter-spacing: -0.025em;
-    line-height: 1.06;
-    color: var(--text);
-  }
-  h1 { font-size: clamp(48px, 8vw, 110px); }
-  h2 { font-size: clamp(36px, 5.2vw, 68px); }
-  h3 { font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; }
-
-  .lead {
-    font-size: clamp(17px, 1.6vw, 22px);
-    color: var(--text-mid);
-    max-width: 720px;
-    line-height: 1.6;
-  }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-  }
-  .hero-deco {
-    position: absolute;
-    inset: 0;
-    background-image:
-      radial-gradient(circle at 20% 30%, var(--purple-tint), transparent 40%),
-      radial-gradient(circle at 80% 70%, var(--cyan-tint), transparent 40%);
-    opacity: 0.7;
-  }
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(14,14,26,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(14,14,26,0.04) 1px, transparent 1px);
-    background-size: 80px 80px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 80%);
-    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 30%, transparent 80%);
-  }
-  .hero-content { position: relative; z-index: 2; }
-  .hero h1 { margin-bottom: 32px; }
-  .hero h1 .accent {
-    background: linear-gradient(120deg, var(--purple) 0%, var(--cyan) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .hero-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 32px;
-    margin-top: 64px;
-    padding-top: 32px;
-    border-top: 1px solid var(--border);
-  }
-  .hero-meta strong {
-    color: var(--purple);
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-  .hero-meta span { color: var(--text-mid); font-size: 14px; font-weight: 500; }
-
-  .scrollhint {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--text-dim);
-    font-size: 11px;
-    font-family: 'JetBrains Mono', monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    animation: bob 2.5s ease-in-out infinite;
-  }
-  .scrollhint .line {
-    width: 1px; height: 40px;
-    background: linear-gradient(180deg, var(--purple), transparent);
-  }
-  @keyframes bob {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(8px); }
-  }
-
-  /* Reveal animation */
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
-  }
-  .reveal.in { opacity: 1; transform: translateY(0); }
-  .reveal.delay-1 { transition-delay: 0.1s; }
-  .reveal.delay-2 { transition-delay: 0.2s; }
-  .reveal.delay-3 { transition-delay: 0.3s; }
-  .reveal.delay-4 { transition-delay: 0.4s; }
-
-  /* PANORAMA */
-  .panorama-tese {
-    text-align: center;
-    margin-bottom: 80px;
-    position: relative;
-  }
-  .panorama-tese::before {
-    content: '"';
-    position: absolute;
-    top: -60px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 180px;
-    line-height: 1;
-    color: var(--purple-tint);
-    z-index: -1;
-  }
-  .panorama-tese h2 {
-    font-size: clamp(34px, 5vw, 60px);
-    line-height: 1.15;
-  }
-  .panorama-tese h2 .strike {
-    color: var(--text-dim);
-    text-decoration: line-through;
-    text-decoration-color: rgba(232,74,107,0.4);
-    text-decoration-thickness: 3px;
-  }
-  .panorama-tese h2 .accent {
-    background: linear-gradient(135deg, var(--purple), var(--cyan));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  @media (max-width: 720px) { .stats { grid-template-columns: 1fr; } }
-
-  .stat {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 36px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s ease;
-  }
-  .stat:hover {
-    border-color: var(--purple);
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-  }
-  .stat::after {
-    content: '';
-    position: absolute;
-    top: -40px; right: -40px;
-    width: 140px; height: 140px;
-    background: radial-gradient(circle, var(--purple-tint), transparent 70%);
-    opacity: 0.6;
-  }
-  .stat-num {
-    font-size: clamp(48px, 6vw, 76px);
-    font-weight: 800;
-    color: var(--text);
-    line-height: 1;
-    margin-bottom: 10px;
-    letter-spacing: -0.04em;
-    position: relative; z-index: 1;
-  }
-  .stat-num .unit { font-size: 0.4em; color: var(--purple); font-weight: 700; }
-  .stat-label { font-size: 14px; color: var(--text-mid); font-weight: 600; position: relative; z-index: 1; }
-  .stat-sub { font-size: 12px; color: var(--text-dim); margin-top: 6px; font-family: 'JetBrains Mono', monospace; position: relative; z-index: 1; }
-
-  /* JORNADA HORIZONTAL */
-  .jornada-section {
-    padding: 0;
-    background: var(--bg-soft);
-    color: var(--text);
-    position: relative;
-    overflow: hidden;
-  }
-  .jornada-intro {
-    padding: 140px 32px 60px;
-    max-width: var(--max-w);
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-  }
-  .jornada-intro h2 { color: var(--text); margin-bottom: 20px; }
-  .jornada-intro h2 .accent {
-    background: linear-gradient(135deg, var(--purple-soft), var(--cyan-soft));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .jornada-intro p { color: var(--text-mid); font-size: 18px; max-width: 720px; }
-
-  .jornada-rail {
-    display: flex;
-    gap: 28px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding: 40px 32px 100px;
-    scroll-padding-left: 32px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-strong) transparent;
-  }
-  .jornada-rail::-webkit-scrollbar { height: 8px; }
-  .jornada-rail::-webkit-scrollbar-track { background: var(--bg-soft); }
-  .jornada-rail::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
-  .jornada-rail::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
-
-  .estacao {
-    flex: 0 0 540px;
-    scroll-snap-align: start;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 28px;
-    padding: 40px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    position: relative;
-    transition: all 0.4s ease;
-  }
-  .estacao:hover {
-    transform: translateY(-4px);
-    border-color: var(--purple);
-    background: var(--bg-tint);
-  }
-  @media (max-width: 720px) {
-    .estacao { flex: 0 0 88vw; padding: 32px 28px; }
-  }
-
-  .estacao-num {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-  .estacao-num .badge {
-    width: 44px; height: 44px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, var(--purple), var(--cyan));
-    color: #fff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 18px;
-  }
-  .estacao-num .step {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-dim);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-
-  .estacao h3 {
-    color: #fff;
-    margin-bottom: 12px;
-    font-size: 26px;
-  }
-
-  .estacao-pergunta {
-    font-style: italic;
-    color: var(--cyan);
-    font-size: 15px;
-    margin-bottom: 28px;
-    padding-bottom: 28px;
-    border-bottom: 1px dashed var(--border);
-    line-height: 1.5;
-  }
-
-  .estacao-states {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .estacao-state {
-    padding: 18px 20px;
-    border-radius: 14px;
-    background: var(--bg-soft);
-    border-left: 3px solid;
-  }
-  .estacao-state.asis { border-left-color: var(--warn); }
-  .estacao-state.tobe { border-left-color: var(--cyan); }
-  .estacao-state .label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 8px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .estacao-state.asis .label { color: var(--warn); }
-  .estacao-state.tobe .label { color: var(--cyan); }
-  .estacao-state .label::before {
-    content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-  }
-  .estacao-state p {
-    color: var(--text);
-    font-size: 14.5px;
-    line-height: 1.5;
-  }
-
-  .estacao-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 24px;
-    padding-top: 24px;
-    border-top: 1px dashed var(--border);
-  }
-  .estacao-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 5px 10px;
-    border-radius: 999px;
-    background: var(--bg-soft);
-    color: var(--text-mid);
-    font-weight: 600;
-  }
-  .estacao-tag.area { background: var(--purple-tint); color: var(--purple); }
-  .estacao-tag.tech { background: rgba(0,184,184,0.18); color: var(--cyan-soft); }
-
-  .jornada-progress {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 0 32px 60px;
-    max-width: var(--max-w);
-    margin: 0 auto;
-    color: var(--text-dim);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .jornada-progress .arrows {
-    margin-left: auto;
-    display: flex;
-    gap: 8px;
-  }
-  .jornada-progress .arrow {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: #fff;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.25s;
-  }
-  .jornada-progress .arrow:hover {
-    background: var(--purple);
-    border-color: var(--purple);
-  }
-  .jornada-progress .arrow svg {
-    width: 16px; height: 16px;
-    fill: none; stroke: currentColor;
-    stroke-width: 2.5;
-  }
-
-  /* O FIO INVISÍVEL */
-  .fio-section {
-    padding: 180px 32px;
-    background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
-    text-align: center;
-  }
-  .fio-content { max-width: 880px; margin: 0 auto; }
-  .fio-content h2 {
-    font-size: clamp(34px, 5vw, 60px);
-    margin-bottom: 28px;
-  }
-  .fio-content h2 em {
-    font-style: normal;
-    background: linear-gradient(135deg, var(--purple), var(--cyan));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .fio-content .quote {
-    font-size: clamp(20px, 2.4vw, 28px);
-    line-height: 1.5;
-    color: var(--text);
-    font-weight: 500;
-    margin-bottom: 16px;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .fio-content .quote .red { color: var(--warn); font-weight: 700; }
-  .fio-content .quote .green { color: var(--cyan); font-weight: 700; }
-
-  .fio-diagram {
-    margin: 80px auto 0;
-    max-width: 980px;
-    background: var(--bg-card);
-    border-radius: 28px;
-    padding: 48px 36px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-md);
-  }
-  .fio-diagram-title {
-    text-align: center;
-    margin-bottom: 32px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--text-dim);
-    font-weight: 700;
-  }
-  .fio-diagram-title.warn { color: var(--warn); }
-  .fio-diagram-title.success { color: var(--cyan); }
-
-  .fio-stations {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    gap: 0;
-    position: relative;
-  }
-  @media (max-width: 720px) {
-    .fio-stations { flex-direction: column; gap: 16px; }
-    .fio-stations .fio-link { display: none; }
-  }
-
-  .fio-station {
-    flex: 0 0 auto;
-    width: 13%;
-    text-align: center;
-  }
-  .fio-circle {
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    background: var(--bg-card);
-    border: 2px solid var(--border);
-    margin: 0 auto 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 18px;
-    color: var(--text);
-    transition: all 0.4s ease;
-  }
-  .fio-station.active .fio-circle {
-    border-color: var(--purple);
-    background: var(--purple);
-    color: #fff;
-    transform: scale(1.1);
-    box-shadow: 0 0 0 6px var(--purple-tint);
-  }
-  .fio-label {
-    font-size: 11px;
-    color: var(--text-mid);
-    font-weight: 600;
-    line-height: 1.3;
-  }
-
-  .fio-link {
-    flex: 1;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-  .fio-link-line {
-    width: 100%;
-    height: 3px;
-    border-radius: 2px;
-    transition: all 0.6s ease;
-  }
-  .fio-link.email .fio-link-line {
-    background: repeating-linear-gradient(90deg, var(--warn) 0 8px, transparent 8px 16px);
-  }
-  .fio-link.system .fio-link-line {
-    background: linear-gradient(90deg, var(--cyan), var(--purple));
-    box-shadow: 0 0 12px rgba(0,184,184,0.4);
-  }
-  .fio-link-emoji {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--bg-card);
-    padding: 4px 8px;
-    border-radius: 999px;
-    font-size: 14px;
-    border: 1px solid var(--border);
-    line-height: 1;
-  }
-
-  .fio-toggle {
-    margin: 32px auto 0;
-    display: inline-flex;
-    background: var(--bg-soft);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 4px;
-  }
-  .fio-toggle button {
-    border: none;
-    background: transparent;
-    padding: 10px 22px;
-    border-radius: 999px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-mid);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  .fio-toggle button.active {
-    background: var(--text);
-    color: var(--bg);
-  }
-  .fio-toggle-wrap { text-align: center; }
-
-  .fio-summary {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 36px;
-  }
-  @media (max-width: 720px) { .fio-summary { grid-template-columns: 1fr; } }
-  .fio-summary-item {
-    padding: 18px 22px;
-    border-radius: 14px;
-    background: var(--bg-soft);
-    text-align: left;
-  }
-  .fio-summary-item.warn { background: var(--warn-tint); }
-  .fio-summary-item.ok { background: var(--cyan-tint); }
-  .fio-summary-item .num {
-    font-size: 32px;
-    font-weight: 800;
-    line-height: 1;
-    margin-bottom: 4px;
-    letter-spacing: -0.03em;
-  }
-  .fio-summary-item.warn .num { color: var(--warn); }
-  .fio-summary-item.ok .num { color: var(--cyan); }
-  .fio-summary-item .desc {
-    font-size: 13px;
-    color: var(--text-mid);
-    font-weight: 500;
-  }
-
-  /* PEÇA INVISÍVEL */
-  .peca-section {
-    padding: 180px 32px;
-    background: var(--bg);
-  }
-  .peca-content { max-width: var(--max-w); margin: 0 auto; }
-  .peca-card {
-    background: linear-gradient(135deg, var(--bg-card), var(--bg-soft));
-    border: 2px solid var(--purple);
-    border-radius: 32px;
-    padding: 64px 56px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    margin-top: 56px;
-  }
-  .peca-card::before {
-    content: '';
-    position: absolute;
-    top: -100px; right: -100px;
-    width: 320px; height: 320px;
-    background: radial-gradient(circle, var(--purple-tint), transparent 60%);
-  }
-  .peca-card .ribbon {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: linear-gradient(135deg, var(--purple), var(--cyan));
-    color: #fff;
-    padding: 8px 18px;
-    border-radius: 999px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-weight: 700;
-    margin-bottom: 24px;
-    position: relative; z-index: 1;
-  }
-  .peca-card h3 {
-    font-size: clamp(28px, 3.6vw, 42px);
-    margin-bottom: 24px;
-    position: relative; z-index: 1;
-    line-height: 1.15;
-  }
-  .peca-card h3 em {
-    font-style: normal;
-    background: linear-gradient(135deg, var(--purple), var(--cyan));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .peca-card p {
-    font-size: 17px;
-    color: var(--text-mid);
-    line-height: 1.65;
-    margin-bottom: 16px;
-    max-width: 760px;
-    position: relative; z-index: 1;
-  }
-  .peca-card p strong { color: var(--text); font-weight: 700; }
-
-  .peca-divisao {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 32px;
-    position: relative; z-index: 1;
-  }
-  @media (max-width: 720px) { .peca-divisao { grid-template-columns: 1fr; } }
-  .peca-divisao > div {
-    padding: 24px;
-    background: var(--bg-card);
-    border-radius: 16px;
-    border: 1px solid var(--border);
-  }
-  .peca-divisao h5 {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 12px;
-    font-weight: 700;
-  }
-  .peca-divisao .ferramenta h5 { color: var(--cyan); }
-  .peca-divisao .governanca h5 { color: var(--purple); }
-  .peca-divisao p { font-size: 14.5px; color: var(--text); line-height: 1.5; margin-bottom: 0;}
-
-  /* DECISÕES EXECUTIVAS */
-  .decisoes-section {
-    padding: 140px 32px;
-    background: var(--bg-soft);
-  }
-  .decisoes-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
-    margin-top: 56px;
-  }
-  @media (max-width: 900px) { .decisoes-grid { grid-template-columns: 1fr; } }
-
-  .decisao {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 36px 32px;
-    transition: all 0.4s ease;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-  }
-  .decisao:hover {
-    border-color: var(--purple);
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-  }
-  .decisao .num {
-    width: 48px; height: 48px;
-    border-radius: 14px;
-    background: var(--purple-tint);
-    color: var(--purple);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 20px;
-    margin-bottom: 24px;
-  }
-  .decisao h4 {
-    font-size: 19px;
-    margin-bottom: 12px;
-    line-height: 1.3;
-    font-weight: 700;
-  }
-  .decisao .descricao {
-    font-size: 14px;
-    color: var(--text-mid);
-    line-height: 1.55;
-    margin-bottom: 24px;
-    flex: 1;
-  }
-  .decisao .meta {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-top: 20px;
-    border-top: 1px dashed var(--border);
-  }
-  .decisao .meta-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-  }
-  .decisao .meta-row .key {
-    font-family: 'JetBrains Mono', monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-dim);
-    font-weight: 600;
-  }
-  .decisao .meta-row .val { color: var(--text); font-weight: 600; }
-
-  /* CRONOGRAMA SWIMLANE */
-  .crono-section {
-    padding: 140px 32px;
-    background: var(--bg);
-  }
-  .swimlane {
-    margin-top: 56px;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-  .swimlane-row {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 32px;
-    box-shadow: var(--shadow-sm);
-  }
-  .swimlane-head {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 24px;
-  }
-  .swimlane-head .lane-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-weight: 700;
-  }
-  .swimlane-row.sistema .lane-tag { background: var(--cyan-tint); color: var(--cyan); }
-  .swimlane-row.governanca .lane-tag { background: var(--purple-tint); color: var(--purple); }
-  .swimlane-head h4 {
-    font-size: 18px;
-    font-weight: 700;
-  }
-
-  .swimlane-steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 14px;
-  }
-  .swimlane-step {
-    background: var(--bg-soft);
-    border-radius: 14px;
-    padding: 18px 20px;
-    border-left: 3px solid;
-    transition: all 0.3s ease;
-  }
-  .swimlane-step:hover { transform: translateX(2px); }
-  .swimlane-row.sistema .swimlane-step { border-left-color: var(--cyan); }
-  .swimlane-row.governanca .swimlane-step { border-left-color: var(--purple); }
-  .swimlane-step .step-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--text-dim);
-    margin-bottom: 6px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 700;
-  }
-  .swimlane-step .step-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.3;
-    margin-bottom: 6px;
-  }
-  .swimlane-step .step-desc {
-    font-size: 12px;
-    color: var(--text-mid);
-    line-height: 1.45;
-  }
-
-  .swimlane-conv {
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(135deg, var(--purple-tint), var(--cyan-tint));
-    border-radius: 16px;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text);
-  }
-  .swimlane-conv::before { content: '⏵ '; }
-
-  /* INDICADORES */
-  .kpi-section {
-    padding: 140px 32px;
-    background: var(--bg-soft);
-  }
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin-top: 56px;
-  }
-  .kpi-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 28px;
-    transition: all 0.3s ease;
-  }
-  .kpi-card:hover {
-    border-color: var(--cyan);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-  }
-  .kpi-icon {
-    width: 40px; height: 40px;
-    border-radius: 12px;
-    background: var(--cyan-tint);
-    color: var(--cyan);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 16px;
-    margin-bottom: 16px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-  .kpi-card h5 {
-    font-size: 14.5px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    line-height: 1.3;
-  }
-  .kpi-card .kpi-sub {
-    font-size: 12px;
-    color: var(--text-dim);
-    font-family: 'JetBrains Mono', monospace;
-    margin-bottom: 16px;
-  }
-  .kpi-card .kpi-comparison {
-    display: flex;
-    gap: 12px;
-    padding-top: 16px;
-    border-top: 1px dashed var(--border);
-  }
-  .kpi-card .kpi-comparison > div {
-    flex: 1;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-family: 'JetBrains Mono', monospace;
-  }
-  .kpi-card .kpi-comparison .label {
-    color: var(--text-dim);
-    margin-bottom: 4px;
-    font-weight: 600;
-  }
-  .kpi-card .kpi-comparison .val {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: none;
-    letter-spacing: 0;
-  }
-  .kpi-card .kpi-comparison .val.now { color: var(--warn); }
-  .kpi-card .kpi-comparison .val.target { color: var(--cyan); }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 120px 32px 60px;
-    background: var(--bg-soft);
-    color: var(--text);
-    text-align: center;
-  }
-  footer h2 { color: var(--text); margin-bottom: 16px; }
-  footer .accent {
-    background: linear-gradient(135deg, var(--purple-soft), var(--cyan-soft));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  footer p {
-    color: var(--text-mid);
-    margin-bottom: 40px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 17px;
-    line-height: 1.6;
-  }
-  .footer-cta {
-    display: inline-block;
-    margin-bottom: 60px;
-    padding: 16px 36px;
-    background: linear-gradient(135deg, var(--purple), var(--cyan));
-    color: #fff;
-    border-radius: 999px;
-    font-weight: 700;
-    font-size: 15px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-  .footer-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 32px -8px rgba(91,69,245,0.5);
-  }
-  .contacts {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 60px;
-  }
-  .contact-tag {
-    padding: 12px 22px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    font-size: 13px;
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--text-mid);
-    font-weight: 500;
-  }
-  .footer-meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-  }
-
-  /* SECTION NAVIGATOR */
-  .secnav {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    z-index: 60;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 12px 10px 18px;
-    background: rgba(253,253,251,0.92);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    box-shadow: var(--shadow-lg);
-    transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  .secnav.visible { opacity: 1; transform: translateY(0); }
-  .secnav-counter {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--text-mid);
-    letter-spacing: 0.08em;
-    font-weight: 600;
-    min-width: 38px;
-    text-align: center;
-  }
-  .secnav-counter strong { color: var(--purple); font-weight: 700; }
-  .secnav-btn {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    border: none;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.25s ease;
-    padding: 0;
-  }
-  .secnav-btn:hover:not(:disabled) {
-    background: var(--purple);
-    border-color: var(--purple);
-    color: #fff;
-    transform: scale(1.08);
-  }
-  .secnav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-  .secnav-btn svg {
-    width: 16px; height: 16px;
-    fill: none; stroke: currentColor;
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  .secnav-btn.primary {
-    background: linear-gradient(135deg, var(--purple), var(--cyan));
-    border-color: transparent;
-    color: #fff;
-    width: 44px; height: 44px;
-  }
-  .secnav-btn.primary:hover:not(:disabled) {
-    transform: scale(1.08);
-    box-shadow: 0 8px 24px rgba(91,69,245,0.35);
-  }
-  .secnav-btn.primary svg { width: 20px; height: 20px; }
-  @media (max-width: 720px) {
-    .secnav { bottom: 16px; right: 16px; padding: 8px 10px 8px 14px; }
-  }
+:root{--bg:#fdfdfb;--bg-alt:#f5f4f0;--bg-card:#ffffff;--border:#e8e6df;--border-strong:#d4d1c8;--purple:#5B45F5;--purple-soft:#7a67f7;--purple-tint:#ebe7ff;--cyan:#00B8B8;--cyan-soft:#2dd0d0;--cyan-tint:#d9f5f5;--warn:#e84a6b;--warn-tint:#fbe6ec;--success:#14a878;--text:#0e0e1a;--text-mid:#4d4d5e;--text-dim:#8a8a98;--max-w:1140px;--shadow-sm:0 1px 3px rgba(14,14,26,0.05);--shadow-md:0 6px 20px rgba(14,14,26,0.07);--shadow-lg:0 20px 48px -12px rgba(91,69,245,0.12)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',system-ui,sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}main{position:relative;z-index:2}
+.topnav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:24px;padding:10px 22px;background:rgba(253,253,251,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:999px;font-size:13px;font-weight:500;box-shadow:var(--shadow-md)}.topnav .logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px;letter-spacing:-0.02em}.topnav .logo .dot{width:8px;height:8px;border-radius:3px;background:var(--cyan)}.topnav .meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase}
+.progress{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--purple),var(--cyan));z-index:100;transition:width .12s linear}
+section{padding:120px 32px;position:relative}section.alt{background:var(--bg-alt)}.container{max-width:var(--max-w);margin:0 auto;width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--purple);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:20px;padding:6px 14px;background:var(--purple-tint);border-radius:999px}.eyebrow.cyan{color:var(--cyan);background:var(--cyan-tint)}
+h1,h2,h3,h4{font-weight:800;letter-spacing:-0.025em;line-height:1.08;color:var(--text)}h1{font-size:clamp(44px,6.5vw,84px)}h2{font-size:clamp(32px,4.5vw,56px)}h3{font-size:clamp(20px,2.2vw,26px);font-weight:700}h4{font-size:17px;font-weight:700}
+.lead{font-size:clamp(16px,1.4vw,19px);color:var(--text-mid);max-width:660px;line-height:1.65;font-weight:400}.accent{background:linear-gradient(135deg,var(--purple),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}.reveal.in{opacity:1;transform:translateY(0)}.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+.hero{min-height:100vh;display:flex;align-items:center}.hero-content{position:relative;z-index:2}.hero h1{margin-bottom:24px}.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:var(--bg-alt);border:1px solid var(--border);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:28px}.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan)}.hero-meta{display:flex;flex-wrap:wrap;gap:36px;margin-top:48px;padding-top:28px;border-top:1px solid var(--border)}.hero-meta div{font-size:13px}.hero-meta strong{color:var(--purple);display:block;margin-bottom:4px;font-weight:600;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em}.hero-meta span{color:var(--text-mid);font-weight:500}
+.scrollhint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);color:var(--text-dim);font-size:10px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.15em;display:flex;flex-direction:column;align-items:center;gap:10px;animation:bob 2.5s ease-in-out infinite}.scrollhint .line{width:1px;height:36px;background:linear-gradient(180deg,var(--purple),transparent)}@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}@media(max-width:720px){.stats-row{grid-template-columns:1fr}}.stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:32px;transition:all .3s}.stat-card:hover{border-color:var(--purple);transform:translateY(-3px);box-shadow:var(--shadow-lg)}.stat-num{font-size:clamp(40px,5vw,60px);font-weight:800;line-height:1;margin-bottom:8px;letter-spacing:-0.04em}.stat-num .unit{font-size:.38em;color:var(--purple);font-weight:700}.stat-label{font-size:14px;color:var(--text-mid);font-weight:600}.stat-sub{font-size:11px;color:var(--text-dim);margin-top:4px;font-family:'JetBrains Mono',monospace}
+.timeline{position:relative;margin-top:56px}.timeline::before{content:'';position:absolute;left:28px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--purple-tint),var(--cyan-tint));border-radius:1px}@media(max-width:720px){.timeline::before{left:20px}}.tl-step{position:relative;padding-left:72px;padding-bottom:56px}@media(max-width:720px){.tl-step{padding-left:52px}}.tl-step:last-child{padding-bottom:0}.tl-marker{position:absolute;left:12px;top:0;width:34px;height:34px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;font-family:'JetBrains Mono',monospace;box-shadow:0 4px 12px rgba(91,69,245,0.25);z-index:2}.tl-marker.cyan{background:var(--cyan);box-shadow:0 4px 12px rgba(0,184,184,0.25)}.tl-step-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);margin-bottom:6px;font-weight:600}.tl-step h3{margin-bottom:8px}.tl-step .lead{margin-bottom:20px}
+.depara{display:grid;grid-template-columns:1fr 40px 1fr;gap:0;align-items:stretch;margin-top:16px}@media(max-width:720px){.depara{grid-template-columns:1fr;gap:8px}}.depara-col{padding:20px;border-radius:14px;font-size:14px;line-height:1.55;color:var(--text-mid)}.depara-col.hoje{background:var(--warn-tint);border:1px solid rgba(232,74,107,0.12)}.depara-col.proposta{background:var(--cyan-tint);border:1px solid rgba(0,184,184,0.15)}.depara-col h5{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:10px;font-weight:700}.depara-col.hoje h5{color:var(--warn)}.depara-col.proposta h5{color:var(--cyan)}.depara-arrow{display:flex;align-items:center;justify-content:center;color:var(--purple);font-size:22px;font-weight:800}@media(max-width:720px){.depara-arrow{display:none}}
+.scope-table{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--bg-card);margin-top:40px}.scope-row{display:grid;grid-template-columns:1fr 1fr 2.5fr;align-items:center;border-bottom:1px solid var(--border);transition:background .3s}.scope-row:last-child{border-bottom:none}.scope-row:hover:not(.head){background:var(--bg-alt)}.scope-row.head{background:var(--bg-alt);font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);font-weight:700}.scope-cell{padding:16px 22px;font-size:14px;line-height:1.4}.scope-cell.area{font-weight:700}.scope-cell.role{color:var(--text-mid)}@media(max-width:720px){.scope-row{grid-template-columns:1fr}.scope-row.head{display:none}.scope-cell{padding:8px 18px}.scope-cell.area{padding-top:16px}}
+.blocos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px}@media(max-width:800px){.blocos-grid{grid-template-columns:1fr}}.bloco-card{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:32px;transition:all .4s;overflow:hidden}.bloco-card:hover{border-color:var(--purple);transform:translateY(-3px);box-shadow:var(--shadow-lg)}.bloco-num{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:12px;font-weight:700}.bloco-card h3{margin-bottom:8px;font-size:20px}.bloco-card p{font-size:14px;color:var(--text-mid);line-height:1.55}.bloco-tag{display:inline-block;margin-top:14px;padding:5px 12px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;font-weight:700}.bloco-tag.compliance{background:var(--purple-tint);color:var(--purple)}.bloco-tag.torre{background:var(--cyan-tint);color:var(--cyan)}.bloco-tag.negociacao{background:#fef5e7;color:#c97e07}.bloco-tag.financeiro{background:var(--warn-tint);color:var(--warn)}
+.gov-card{background:var(--bg-card);border:2px solid var(--purple);border-radius:24px;padding:48px;margin-top:48px;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}.gov-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,var(--purple-tint),transparent 60%);pointer-events:none}.gov-card .ribbon{display:inline-flex;padding:6px 16px;background:linear-gradient(135deg,var(--purple),var(--cyan));color:#fff;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:20px;position:relative;z-index:1}.gov-card h3{font-size:clamp(22px,3vw,32px);margin-bottom:20px;position:relative;z-index:1;line-height:1.15}.gov-card p{font-size:16px;color:var(--text-mid);line-height:1.65;max-width:700px;margin-bottom:14px;position:relative;z-index:1}.gov-card p strong{color:var(--text);font-weight:700}.gov-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px;position:relative;z-index:1}@media(max-width:720px){.gov-steps{grid-template-columns:1fr}}.gov-step{padding:20px;background:var(--bg-alt);border-radius:14px;border:1px solid var(--border)}.gov-step h5{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;font-weight:700;color:var(--purple)}.gov-step p{font-size:13px;color:var(--text-mid);line-height:1.45;margin-bottom:0}
+.impact-table{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--bg-card);margin-top:40px}.impact-row{display:grid;grid-template-columns:1fr 1.2fr 2fr;align-items:center;border-bottom:1px solid var(--border);transition:background .3s}.impact-row:last-child{border-bottom:none}.impact-row:hover:not(.head){background:var(--bg-alt)}.impact-row.head{background:var(--bg-alt);font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);font-weight:700}.impact-cell{padding:16px 22px;font-size:14px;line-height:1.4}.impact-cell.area{font-weight:700}.impact-cell.role{color:var(--text-mid);font-size:13px}.impact-cell.gain{color:var(--text);font-weight:500}@media(max-width:720px){.impact-row{grid-template-columns:1fr}.impact-row.head{display:none}.impact-cell{padding:8px 18px}}
+.pilares-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}@media(max-width:800px){.pilares-grid{grid-template-columns:1fr}}.pilar{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:32px;transition:all .3s}.pilar:hover{border-color:var(--purple);transform:translateY(-3px);box-shadow:var(--shadow-lg)}.pilar-num{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;font-weight:800;font-size:16px;margin-bottom:16px;color:#fff}.pilar-num.p1{background:var(--purple)}.pilar-num.p2{background:var(--cyan)}.pilar-num.p3{background:linear-gradient(135deg,var(--purple),var(--cyan))}.pilar h3{font-size:20px;margin-bottom:6px}.pilar .pilar-sub{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);margin-bottom:16px;font-weight:600}.pilar p{font-size:14px;color:var(--text-mid);line-height:1.55;margin-bottom:10px}.pilar .resultado{font-size:13px;color:var(--purple);font-weight:600;padding-top:12px;border-top:1px solid var(--border)}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.kpi-grid{grid-template-columns:1fr}}.kpi{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px;transition:all .3s}.kpi:hover{border-color:var(--cyan);transform:translateY(-2px);box-shadow:var(--shadow-md)}.kpi-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;font-weight:700}.kpi h4{font-size:15px;margin-bottom:6px;line-height:1.2}.kpi p{font-size:12px;color:var(--text-dim);line-height:1.4}
+.equipe-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}@media(max-width:720px){.equipe-grid{grid-template-columns:1fr}}.equipe-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;font-size:14px}.equipe-card .area-name{font-weight:700;margin-bottom:4px}.equipe-card .gestor{font-size:13px;color:var(--text-mid)}.equipe-card .participantes{font-size:12px;color:var(--text-dim);margin-top:6px}.equipe-card .horario{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);margin-top:6px;letter-spacing:0.05em}
+.detalhes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}@media(max-width:720px){.detalhes-grid{grid-template-columns:1fr}}.detalhe{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px}.detalhe .tag{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:8px;display:inline-block;padding:3px 8px;border-radius:999px}.detalhe h4{font-size:15px;margin-bottom:6px}.detalhe p{font-size:13px;color:var(--text-mid);line-height:1.45}
+footer{border-top:1px solid var(--border);padding:100px 32px 48px;background:var(--bg-alt);text-align:center}footer h2{margin-bottom:14px}footer p{color:var(--text-mid);margin-bottom:32px;max-width:560px;margin-left:auto;margin-right:auto;font-size:16px;line-height:1.6}.contacts{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:48px}.contact-tag{padding:10px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:999px;font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--text-mid);transition:all .3s}.contact-tag:hover{border-color:var(--purple);color:var(--purple);transform:translateY(-2px)}.footer-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em}
+@media(max-width:720px){section{padding:80px 20px}.hero-meta{gap:20px}}
 </style>
 </head>
 <body>
-
 <div class="progress" id="progress"></div>
-
-<nav class="topnav">
-  <div class="logo"><span class="dot"></span>consolida</div>
-  <span class="meta">SCHULZ · 30 ABR 2026</span>
-</nav>
-
-<div class="secnav" id="secnav">
-  <span class="secnav-counter"><strong id="secnavCurrent">1</strong> / <span id="secnavTotal">8</span></span>
-  <button class="secnav-btn" id="secnavPrev" aria-label="Anterior">
-    <svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>
-  </button>
-  <button class="secnav-btn primary" id="secnavNext" aria-label="Próximo">
-    <svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>
-  </button>
-</div>
-
+<nav class="topnav"><div class="logo"><span class="dot"></span> consolida</div><span class="meta">Schulz S.A. &middot; Maio 2026</span></nav>
 <main>
 
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <div class="hero-deco"></div>
-    <div class="hero-grid"></div>
-    <div class="container hero-content">
-      <div class="eyebrow reveal in">Schulz S.A. · Diagnóstico de Logística</div>
-      <h1 class="reveal in delay-1">A jornada de uma carga,<br><span class="accent">do pedido ao pagamento.</span></h1>
-      <p class="lead reveal in delay-2">Em cada momento da vida de uma carga, o que a Schulz controla hoje, e o que vai passar a controlar.</p>
-      <div class="hero-meta reveal in delay-3">
-        <div><strong>Cliente</strong><span>Schulz S.A. · Joinville/SC</span></div>
-        <div><strong>Apresentação</strong><span>30 de abril de 2026</span></div>
-        <div><strong>Elaboração</strong><span>Consolida + Lincros</span></div>
+<section class="hero" id="capa">
+  <div class="container hero-content">
+    <div class="hero-badge reveal in"><span class="dot"></span> Diagnostico Consolidado &middot; Logistica de Transporte</div>
+    <h1 class="reveal in d1">Schulz S.A.<br><span class="accent">A jornada da carga.</span></h1>
+    <p class="lead reveal in d2">Mapeamento do processo logistico de transporte, do pedido ao pagamento. Como cada etapa funciona hoje e como pode evoluir com a melhor utilizacao do TMS Lincros e governanca contratual.</p>
+    <div class="hero-meta reveal in d3">
+      <div><strong>Cliente</strong><span>Schulz S.A. &middot; Joinville/SC</span></div>
+      <div><strong>Elaboracao</strong><span>Consolida + Lincros</span></div>
+      <div><strong>Versao</strong><span>Final &middot; Maio 2026</span></div>
+      <div><strong>Areas</strong><span>Logistica, Compras, Fiscal, Financeiro, Controladoria, TIC</span></div>
+    </div>
+  </div>
+  <div class="scrollhint">Role para comecar<div class="line"></div></div>
+</section>
+
+<section id="contexto" class="alt">
+  <div class="container">
+    <div class="eyebrow reveal">01 &middot; Contexto da operacao</div>
+    <h2 class="reveal d1">Entendendo a Schulz<br>por dentro.</h2>
+    <p class="lead reveal d2" style="margin-top:16px">Dois perfis logisticos coexistem na mesma estrutura, com volumes e regras distintas. O diagnostico foi construido a partir de entrevistas com seis areas na unidade de Joinville.</p>
+    <div class="stats-row reveal d3">
+      <div class="stat-card"><div class="stat-num"><span data-counter="58">0</span><span class="unit"> M</span></div><div class="stat-label">Conta frete anual (R$)</div><div class="stat-sub">Automotiva + Compressores</div></div>
+      <div class="stat-card"><div class="stat-num"><span data-counter="8">0</span></div><div class="stat-label">Dores estruturais mapeadas</div><div class="stat-sub">7 ferramenta + 1 governanca</div></div>
+      <div class="stat-card"><div class="stat-num"><span data-counter="3">0</span></div><div class="stat-label">Pilares do projeto</div><div class="stat-sub">Fundacao, torre+governanca, automacao</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px">
+      <div class="stat-card reveal"><h4>Perfil FOB &middot; Automotiva</h4><p style="font-size:14px;color:var(--text-mid);margin-top:8px">Operacao majoritariamente FOB com montadoras no modelo milk run. GAC agenda no TOTVS, pedidos via EDI, janelas pre-definidas com Irapuru (6 janelas/dia) e Sulista (agendamento por e-mail). Fluxo linear com baixa demanda de acompanhamento.</p></div>
+      <div class="stat-card reveal d1"><h4>Perfil CIF &middot; Compressores (30-40%)</h4><p style="font-size:14px;color:var(--text-mid);margin-top:8px">Operacao mais complexa e pulverizada, com multiplas origens de demanda. Inclui RVA (revenda reversa, fretes de garantia) e Vendas/Revenda, areas com maior oportunidade de melhoria em visibilidade de status.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="metodo">
+  <div class="container">
+    <div class="eyebrow reveal">02 &middot; Metodo</div>
+    <h2 class="reveal d1">Tres camadas<br>de evidencia.</h2>
+    <div class="pilares-grid reveal d2">
+      <div class="pilar"><div class="pilar-num p1">1</div><h3>Entrevistas estruturadas</h3><p>Reuniao de mapeamento em 18/03/2026, em Joinville. Seis areas, gestores e representantes tecnicos. Cobertura completa.</p></div>
+      <div class="pilar"><div class="pilar-num p2">2</div><h3>Aprofundamento tecnico Lincros</h3><p>Detalhamento de como o TMS responde aos fluxos criticos: Ordem de Coleta, EDI Proceda, Cotacao Spot e Auditoria de Frete.</p></div>
+      <div class="pilar"><div class="pilar-num p3">3</div><h3>Leitura cruzada</h3><p>Oito dores consolidadas com de-para, separadas em duas camadas: ferramenta e governanca contratual.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="escopo" class="alt">
+  <div class="container">
+    <div class="eyebrow reveal">03 &middot; Escopo do projeto</div>
+    <h2 class="reveal d1">Areas impactadas<br>e seus papeis.</h2>
+    <p class="lead reveal d2" style="margin-top:16px">Nem toda area entrevistada participa como dona de processo. A clareza do papel de cada uma evita diluicao de responsabilidade.</p>
+    <div class="scope-table reveal d3">
+      <div class="scope-row head"><div class="scope-cell">Area</div><div class="scope-cell">Papel</div><div class="scope-cell">Justificativa</div></div>
+      <div class="scope-row"><div class="scope-cell area">RVA</div><div class="scope-cell role">Dona de processo</div><div class="scope-cell">Maior oportunidade de melhoria em visibilidade sobre coletas reversas e fretes de garantia.</div></div>
+      <div class="scope-row"><div class="scope-cell area">Vendas / Revenda</div><div class="scope-cell role">Dona de processo</div><div class="scope-cell">Concentra rastreamento, endereco divergente, agendamento e operacao do deposito Ascensus.</div></div>
+      <div class="scope-row"><div class="scope-cell area">Compras</div><div class="scope-cell role">Gatekeeper</div><div class="scope-cell">Incorpora exigencias de publicacao de status a homologacao contratual de transportadoras.</div></div>
+      <div class="scope-row"><div class="scope-cell area">Ascensus</div><div class="scope-cell role">Ator externo via Lincros</div><div class="scope-cell">Empresa terceirizada com unidade apartada. Baixa em tempo real e cargas dedicadas via usuario externo.</div></div>
+      <div class="scope-row"><div class="scope-cell area">TI + Projetos Lincros</div><div class="scope-cell role">Camada estrutural</div><div class="scope-cell">Sustenta integracao TOTVS-Lincros, EDI Proceda e habilitacao de usuarios.</div></div>
+      <div class="scope-row"><div class="scope-cell area">Logistica, Fiscal, Controladoria, Financeiro</div><div class="scope-cell role">Areas impactadas</div><div class="scope-cell">Recebem o ganho operacional da auditoria automatizada e da torre de controle.</div></div>
+      <div class="scope-row"><div class="scope-cell area">Manutencao</div><div class="scope-cell role">Fora do escopo</div><div class="scope-cell">Atendida por Compras, com poucas demandas. Casos pontuais absorvidos pela mesma estrutura.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="fluxo">
+  <div class="container">
+    <div class="eyebrow reveal">04 &middot; O fluxo logistico de transporte</div>
+    <h2 class="reveal d1">Do pedido ao pagamento,<br>etapa por etapa.</h2>
+    <p class="lead reveal d2" style="margin-top:16px">Cada etapa do processo logistico com o cenario atual e a evolucao proposta com o Lincros.</p>
+    <div class="timeline reveal d3">
+      <div class="tl-step"><div class="tl-marker">1</div><div class="tl-step-label">Comercial &rarr; Pedido</div><h3>O pedido nasce e a logistica analisa</h3><p class="lead" style="max-width:100%">A area comercial demanda o pedido. A Logistica e o GAC analisam as necessidades de entrega e as condicoes para executar.</p>
+        <div class="depara"><div class="depara-col hoje"><h5>Hoje</h5><p>Pedido entra no ERP via EDI. GAC monta agendamento no TOTVS. Romaneio e gerado, mas sua obrigatoriedade varia entre Automotiva e Compressores. Sem padrao unico de embarque, parte das saidas fisicas nao tem rastreabilidade completa.</p></div><div class="depara-arrow">&rarr;</div><div class="depara-col proposta"><h5>Com o Lincros</h5><p>Romaneio do TOTVS vira Embarque no Lincros via integracao ja existente. Romaneio passa a ser obrigatorio para toda saida fisica, funcionando como chave unica de rastreabilidade. Nota fiscal sai com data de saida obrigatoria.</p></div></div>
+      </div>
+      <div class="tl-step"><div class="tl-marker">2</div><div class="tl-step-label">Compras &rarr; Contratacao</div><h3>Transportadora e contratada</h3><p class="lead" style="max-width:100%">Compras negocia tabelas, homologa transportadoras e aciona o transporte. Em cargas expressas ou destinos nao tabelados, entra o processo de cotacao.</p>
+        <div class="depara"><div class="depara-col hoje"><h5>Hoje</h5><p>Carga em tabela funciona. Carga expressa: Compras aciona transportadoras por e-mail e WhatsApp na ordem do menor preco, espera retorno, vai pra proxima se a primeira recusou. Cotacao spot por e-mail. Sem registro sistemico.</p></div><div class="depara-arrow">&rarr;</div><div class="depara-col proposta"><h5>Com o Lincros</h5><p>Carga expressa passa por Ordem de Coleta no Lincros, com peso, valor, destino e prazo vinculados. Aceite ou recusa pelo portal. Cotacao spot exige minimo de 3 transportadoras e acontece antes da expedicao. Tudo registrado.</p></div></div>
+      </div>
+      <div class="tl-step"><div class="tl-marker">3</div><div class="tl-step-label">Expedicao &rarr; Saida</div><h3>Carga e preparada e coletada</h3><p class="lead" style="max-width:100%">A expedicao separa a carga e deixa o material pronto. A transportadora realiza a coleta, emite CT-e, MDF-e e CIOT quando necessario, e inicia o transporte.</p>
+        <div class="depara"><div class="depara-col hoje"><h5>Hoje</h5><p>No deposito Ascensus, romaneios sao fisicos, baixa e manual. Endereco de entrega divergente do fiscal e alterado por e-mail. Regras especificas por cliente (ajudante, veiculo, paletizacao) vao soltas para a transportadora.</p></div><div class="depara-arrow">&rarr;</div><div class="depara-col proposta"><h5>Com o Lincros</h5><p>Ascensus opera como usuario externo do Lincros, com baixa em tempo real. Endereco de entrega tem campo dedicado via integracao. Regras por destinatario cadastradas como Instrucoes, disparadas automaticamente a cada embarque.</p></div></div>
+      </div>
+      <div class="tl-step"><div class="tl-marker cyan">4</div><div class="tl-step-label">Transporte &rarr; Entrega</div><h3>Carga viaja e e entregue</h3><p class="lead" style="max-width:100%">A transportadora atualiza os status intermediarios e de entrega, e conclui a operacao de transporte.</p>
+        <div class="depara"><div class="depara-col hoje"><h5>Hoje</h5><p>Vendas consulta 7 portais de transportadoras cerca de 10 vezes por dia. RVA acompanha coletas reversas por e-mail. 20 a 30% das entregas tem agendamento feito pela transportadora sem participacao do embarcador.</p></div><div class="depara-arrow">&rarr;</div><div class="depara-col proposta"><h5>Com o Lincros</h5><p>Torre unica via padrao EDI Proceda. Cada transportadora tem de/para configurado. Cliente recebe notificacao direta. Agendamento criado pela equipe Schulz no Lincros, com historico de previsao e data reagendada para analise de SLA.</p></div></div>
+      </div>
+      <div class="tl-step"><div class="tl-marker cyan">5</div><div class="tl-step-label">Financeiro &rarr; Pagamento</div><h3>Frete e auditado e pago</h3><p class="lead" style="max-width:100%">A controladoria analisa os valores de frete contra a negociacao em tabela. Fiscal da entrada nos documentos. Financeiro libera o pagamento.</p>
+        <div class="depara"><div class="depara-col hoje"><h5>Hoje</h5><p>CT-e da entrada manual no fiscal com prazo de 48h. Cubagem conferida manualmente. Modalidade incorreta (CIF/FOB) gera retrabalho. Taxas extras validadas por e-mail. Documentos chegam com 3 dias do vencimento.</p></div><div class="depara-arrow">&rarr;</div><div class="depara-col proposta"><h5>Com o Lincros</h5><p>CT-e integra automatico. Auditoria contra tabela com tolerancia configuravel e cubagem parametrizada por transportadora. Painel de divergencias com responsavel e prazo. Fatura integra 10 a 20 dias antes do vencimento, ja auditada.</p></div></div>
+      </div>
+      <div class="tl-step"><div class="tl-marker" style="background:linear-gradient(135deg,var(--purple),var(--cyan))">+</div><div class="tl-step-label">Variacao &rarr; Coleta em fornecedores</div><h3>Mesmo fluxo, direcao inversa</h3><p class="lead" style="max-width:100%">Para coleta em fornecedores, segue-se o mesmo fluxo: analise da demanda, escolha da transportadora por preco e disponibilidade, coleta, atualizacao de status, emissao de documentos, cobranca e conferencia pela Controladoria e Fiscal.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="blocos" class="alt">
+  <div class="container">
+    <div class="eyebrow reveal">05 &middot; Os 4 blocos operacionais Lincros</div>
+    <h2 class="reveal d1">Como o sistema<br>responde a cada etapa.</h2>
+    <p class="lead reveal d2" style="margin-top:16px">Cada bloco endereca uma camada do processo. Juntos, formam a torre de controle e a auditoria continua.</p>
+    <div class="blocos-grid">
+      <div class="bloco-card reveal"><div class="bloco-num">Bloco 01</div><h3>Frete Expresso e Ordem de Coleta</h3><p>Para cargas FOB que viram expressas, fluxo sistemico de selecao de transportadora por menor preco com aceite via portal. Transportadora que recusa sistematicamente vira sinal para Compras avaliar a base.</p><span class="bloco-tag compliance">Compliance comercial</span></div>
+      <div class="bloco-card reveal d1"><div class="bloco-num">Bloco 02</div><h3>Monitoramento via EDI Proceda</h3><p>Status compartilhado de todas as transportadoras por arquivo EDI padrao Proceda, com de/para personalizado por transportador. Substitui consulta a sete portais por uma so interface.</p><span class="bloco-tag torre">Torre de controle</span></div>
+      <div class="bloco-card reveal"><div class="bloco-num">Bloco 03</div><h3>Cotacao Spot</h3><p>Para destinos nao tabelados, cotacao via plataforma com minimo de 3 transportadoras acionadas. Regra critica: cotacao acontece antes da expedicao. Transportadora responde por link com preco e prazo.</p><span class="bloco-tag negociacao">Negociacao justa</span></div>
+      <div class="bloco-card reveal d1"><div class="bloco-num">Bloco 04</div><h3>Auditoria de Frete</h3><p>Checagem automatica de CT-e contra tabela cadastrada. Cada componente conferido: frete peso, ad valorem, GRIS, pedagio, ICMS. Cobranca a maior gera desconto, a menor gera complementar.</p><span class="bloco-tag financeiro">Governanca financeira</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="governanca">
+  <div class="container">
+    <div class="eyebrow reveal">06 &middot; O complemento contratual</div>
+    <h2 class="reveal d1">O que o sistema resolve<br>e o que o contrato complementa.</h2>
+    <p class="lead reveal d2" style="margin-top:16px">Tudo nos blocos anteriores se resolve com Lincros parametrizado e equipe treinada. Existe uma camada adicional que potencializa o resultado.</p>
+    <div class="gov-card reveal d3">
+      <span class="ribbon">Governanca da malha de transporte</span>
+      <h3>A transportadora publica<br>status e ocorrencias no sistema.</h3>
+      <p><strong>A publicacao de status pela transportadora e potencializada por uma exigencia contratual</strong>, que complementa a parametrizacao do sistema: realizar cotacao pelo portal, responder pelo portal, enviar ocorrencias de status, e enviar dados corretos para faturamento e pagamento.</p>
+      <div class="gov-steps">
+        <div class="gov-step"><h5>01 &middot; Homologacao contratual</h5><p>Transportadora se compromete a publicar status e ocorrencias na plataforma do embarcador como condicao de continuidade na base.</p></div>
+        <div class="gov-step"><h5>02 &middot; Vinculo status-pagamento</h5><p>Em fase posterior, aceite de fatura passa a considerar a publicacao correta das ocorrencias do trajeto. Principio "no track, no pay".</p></div>
+        <div class="gov-step"><h5>03 &middot; Regua de compliance</h5><p>Acompanhamento periodico da aderencia da base de transportadoras a publicacao de status. Plano de acao para quem esta fora da regua.</p></div>
       </div>
     </div>
-    <div class="scrollhint">Comece pela jornada<div class="line"></div></div>
-  </section>
+  </div>
+</section>
 
-  <!-- PANORAMA -->
-  <section id="panorama">
-    <div class="container">
-      <div class="panorama-tese reveal">
-        <h2>Processo logístico<br><span class="accent">de transporte Schulz.</span></h2>
-      </div>
-
-      <div class="stats">
-        <div class="stat reveal delay-1">
-          <div class="stat-num"><span data-counter="58">0</span><span class="unit"> M</span></div>
-          <div class="stat-label">Conta frete anual (R$)</div>
-          <div class="stat-sub">automotiva + compressores</div>
-        </div>
-        <div class="stat reveal delay-2">
-          <div class="stat-num"><span data-counter="7">0</span></div>
-          <div class="stat-label">Portais consultados</div>
-          <div class="stat-sub">10 vezes ao dia</div>
-        </div>
-        <div class="stat reveal delay-3">
-          <div class="stat-num"><span data-counter="30">0</span><span class="unit"> %</span></div>
-          <div class="stat-label">Entregas com agendamento externo</div>
-          <div class="stat-sub">agendamento feito pela transportadora</div>
-        </div>
-      </div>
-
-      <p class="lead reveal delay-4" style="margin-top: 56px; font-size: 17px; max-width: 760px;">
-        São três sintomas de um mesmo problema: a Schulz tem visibilidade da operação até o momento em que a carga sai. A partir daí, o controle migra para múltiplos sistemas e múltiplas conversas. As próximos 6 processos da jornada mostram onde isso acontece, e como o redesenho devolve o controle pra dentro de casa.
-      </p>
+<section id="impacto" class="alt">
+  <div class="container">
+    <div class="eyebrow reveal">07 &middot; Impacto por area</div>
+    <h2 class="reveal d1">Como cada area<br>e impactada pelo projeto.</h2>
+    <div class="impact-table reveal d2">
+      <div class="impact-row head"><div class="impact-cell">Area</div><div class="impact-cell">Posicao</div><div class="impact-cell">Ganho pratico</div></div>
+      <div class="impact-row"><div class="impact-cell area">Logistica</div><div class="impact-cell role">Area impactada</div><div class="impact-cell gain">Visibilidade de embarques. Romaneio obrigatorio vinculado. Fim de troca de transportadora nao refletida na NF.</div></div>
+      <div class="impact-row"><div class="impact-cell area">Compras</div><div class="impact-cell role">Gatekeeper</div><div class="impact-cell gain">Dona da homologacao com nova clausula contratual. Gestao da base de transportadores ativos no portal.</div></div>
+      <div class="impact-row"><div class="impact-cell area">Rec. Fiscal</div><div class="impact-cell role">Area impactada</div><div class="impact-cell gain">Integracao CT-e mais limpa. Fim do retrabalho de modalidade incorreta. Lancamento na janela de 48h sustentado pela auditoria.</div></div>
+      <div class="impact-row"><div class="impact-cell area">Financeiro</div><div class="impact-cell role">Area impactada</div><div class="impact-cell gain">Janela de 3 dias passa para 10 a 20 dias. Documentos chegam ja auditados.</div></div>
+      <div class="impact-row"><div class="impact-cell area">Controladoria</div><div class="impact-cell role">Gestora de excecoes</div><div class="impact-cell gain">Painel unico de divergencias. Evidencias automaticas para compliance. Cubagem parametrizada.</div></div>
+      <div class="impact-row"><div class="impact-cell area">TIC</div><div class="impact-cell role">Camada estrutural</div><div class="impact-cell gain">Sustenta integracao TOTVS-Lincros, usuario externo Ascensus e EDI Proceda.</div></div>
+      <div class="impact-row"><div class="impact-cell area">Manutencao</div><div class="impact-cell role">Fora do escopo</div><div class="impact-cell gain">Casos pontuais absorvidos pela mesma estrutura.</div></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- JORNADA HORIZONTAL -->
-  <section class="jornada-section" id="jornada">
-    <div class="jornada-intro">
-      <div class="eyebrow dark reveal" style="background: var(--cyan-tint); color: var(--cyan);">A jornada</div>
-      <h2 class="reveal delay-1">6 processos,<br><span class="accent">do pedido ao pagamento.</span></h2>
-      <p class="reveal delay-2">Cada processo tem uma pergunta de controle. Hoje, em quatro delas a resposta é "hoje é feito de forma manual". Arraste para o lado, ou use as setas.</p>
+<section id="pilares">
+  <div class="container">
+    <div class="eyebrow reveal">08 &middot; Abordagem</div>
+    <h2 class="reveal d1">3 pilares para evoluir<br>o processo logistico.</h2>
+    <p class="lead reveal d2" style="margin-top:16px">Estrutura conceitual do projeto, do ponto tecnico ao contratual.</p>
+    <div class="pilares-grid reveal d3">
+      <div class="pilar"><div class="pilar-num p1">1</div><h3>Fundacao tecnica</h3><div class="pilar-sub">Parametrizacao + auditoria</div><p>Parametrizacao do Lincros nas tabelas vigentes. Configuracao da auditoria automatica de CT-e e painel de divergencias. Treinamento da Controladoria.</p><div class="resultado">Controladoria trata divergencia por excecao, nao por planilha.</div></div>
+      <div class="pilar"><div class="pilar-num p2">2</div><h3>Torre + Governanca</h3><div class="pilar-sub">EDI Proceda + contrato</div><p>Ativacao do EDI Proceda com de/para por transportadora. Treinamento de Vendas, RVA e operador do Ascensus. Compras conduz revisao contratual da base.</p><div class="resultado">Fim da consulta a sete portais. Inicio da transparencia contratual.</div></div>
+      <div class="pilar"><div class="pilar-num p3">3</div><h3>Automacao e Indicadores</h3><div class="pilar-sub">Ordem de Coleta + BI</div><p>Ordem de Coleta para frete expresso. Cotacao Spot via plataforma. Dashboards rodando. Vinculo entre publicacao de ocorrencias e liberacao de pagamento.</p><div class="resultado">Schulz opera logistica por indicador, nao por excecao.</div></div>
     </div>
+  </div>
+</section>
 
-    <div class="jornada-rail" id="jornadaRail">
-
-      <!-- ESTAÇÃO 1 -->
-      <div class="estacao">
-        <div class="estacao-num">
-          <span class="badge">1</span>
-          <span class="step">Processo 01 / 06</span>
-        </div>
-        <h3>Pedido entra</h3>
-        <p class="estacao-pergunta">A Schulz sabe que essa carga vai sair no prazo?</p>
-
-        <div class="estacao-states">
-          <div class="estacao-state asis">
-            <div class="label">Hoje</div>
-            <p>Pedido cai no ERP via EDI. GAC monta agendamento no TOTVS. Romaneio é gerado, mas sua obrigatoriedade varia entre Automotiva e Compressores. Sem padrão único de embarque, parte das saídas físicas não tem rastro a partir daqui.</p>
-          </div>
-          <div class="estacao-state tobe">
-            <div class="label">Com o redesenho</div>
-            <p>Romaneio do TOTVS vira Embarque no Lincros via integração já existente. Romaneio passa a ser obrigatório para toda saída física, virando a chave única de rastreabilidade da carga.</p>
-          </div>
-        </div>
-
-        <div class="estacao-meta">
-          <span class="estacao-tag area">Vendas · GAC</span>
-          <span class="estacao-tag tech">Integração TOTVS / Lincros</span>
-        </div>
-      </div>
-
-      <!-- ESTAÇÃO 2 -->
-      <div class="estacao">
-        <div class="estacao-num">
-          <span class="badge">2</span>
-          <span class="step">Processo 02 / 06</span>
-        </div>
-        <h3>Carga é contratada</h3>
-        <p class="estacao-pergunta">A Schulz pagou o melhor preço justo?</p>
-
-        <div class="estacao-states">
-          <div class="estacao-state asis">
-            <div class="label">Hoje</div>
-            <p>Carga em tabela funciona. Carga expressa não. Compras aciona transportadoras por e-mail e WhatsApp na ordem do menor preço, espera retorno, vai pra próxima se a primeira recusou. Nada disso fica registrado em sistema.</p>
-          </div>
-          <div class="estacao-state tobe">
-            <div class="label">Com o redesenho</div>
-            <p>Carga expressa passa por Ordem de Coleta no Lincros. Sistema dispara para a transportadora com peso, valor, destino e prazo. Aceite ou recusa pelo portal. Cotação spot, quando entra, exige no mínimo 3 transportadoras e acontece antes da expedição.</p>
-          </div>
-        </div>
-
-        <div class="estacao-meta">
-          <span class="estacao-tag area">Compras</span>
-          <span class="estacao-tag tech">Ordem de Coleta · Lincros</span>
-        </div>
-      </div>
-
-      <!-- ESTAÇÃO 3 -->
-      <div class="estacao">
-        <div class="estacao-num">
-          <span class="badge">3</span>
-          <span class="step">Processo 03 / 06</span>
-        </div>
-        <h3>Carga sai</h3>
-        <p class="estacao-pergunta">A Schulz sabe o que efetivamente saiu, e para onde?</p>
-
-        <div class="estacao-states">
-          <div class="estacao-state asis">
-            <div class="label">Hoje</div>
-            <p>Quando a carga sai do depósito Censos, a operação é desconectada. Romaneios são físicos, baixa é manual. Endereço de entrega divergente do fiscal é alterado por e-mail. Regras específicas por cliente vão soltas pra transportadora.</p>
-          </div>
-          <div class="estacao-state tobe">
-            <div class="label">Com o redesenho</div>
-            <p>Censos opera como usuário externo do Lincros, faz baixa em tempo real. Endereço de entrega tem campo dedicado, alimentado pela integração. Regras por cliente cadastradas como Instruções, disparadas automaticamente a cada embarque.</p>
-          </div>
-        </div>
-
-        <div class="estacao-meta">
-          <span class="estacao-tag area">Censos · Vendas</span>
-          <span class="estacao-tag tech">Usuário externo · Instruções</span>
-        </div>
-      </div>
-
-      <!-- ESTAÇÃO 4 -->
-      <div class="estacao">
-        <div class="estacao-num">
-          <span class="badge">4</span>
-          <span class="step">Processo 04 / 06</span>
-        </div>
-        <h3>Carga viaja</h3>
-        <p class="estacao-pergunta">A Schulz sabe onde está, e quando chega?</p>
-
-        <div class="estacao-states">
-          <div class="estacao-state asis">
-            <div class="label">Hoje</div>
-            <p>Vendas consulta 7 portais de transportadoras 10 vezes por dia. RVA acompanha coletas reversas por e-mail. Cliente final liga pedindo status que a Schulz também não tem. Ninguém vê a operação no mesmo lugar ao mesmo tempo.</p>
-          </div>
-          <div class="estacao-state tobe">
-            <div class="label">Com o redesenho</div>
-            <p>Torre única no Lincros via padrão EDI Proceda. Cada transportadora tem de/para configurado entre sua nomenclatura e o padrão Schulz. Cliente recebe notificação direto. Equipe interna deixa de ser ponto de consulta e vira ponto de exceção.</p>
-          </div>
-        </div>
-
-        <div class="estacao-meta">
-          <span class="estacao-tag area">Vendas · RVA</span>
-          <span class="estacao-tag tech">EDI Proceda · Torre única</span>
-        </div>
-      </div>
-
-      <!-- ESTAÇÃO 5 -->
-      <div class="estacao">
-        <div class="estacao-num">
-          <span class="badge">5</span>
-          <span class="step">Processo 05 / 06</span>
-        </div>
-        <h3>Carga é entregue</h3>
-        <p class="estacao-pergunta">A Schulz consegue provar o SLA?</p>
-
-        <div class="estacao-states">
-          <div class="estacao-state asis">
-            <div class="label">Hoje</div>
-            <p>20 a 30% das entregas têm agendamento feito pela transportadora direto com o cliente, sem participação do embarcador. Atraso real e atraso justificado se misturam. Sem evidência sistêmica, contestar performance vira jogo de palavra.</p>
-          </div>
-          <div class="estacao-state tobe">
-            <div class="label">Com o redesenho</div>
-            <p>Equipe Schulz cria a instrução de agendamento no Lincros, valida com o cliente e envia para a transportadora. Sistema mantém histórico de previsão original e data reagendada. SLA passa a ter base documental, contestação tem prova.</p>
-          </div>
-        </div>
-
-        <div class="estacao-meta">
-          <span class="estacao-tag area">Vendas</span>
-          <span class="estacao-tag tech">Agendamento sistêmico</span>
-        </div>
-      </div>
-
-      <!-- ESTAÇÃO 6 -->
-      <div class="estacao">
-        <div class="estacao-num">
-          <span class="badge">6</span>
-          <span class="step">Processo 06 / 06</span>
-        </div>
-        <h3>Frete é pago</h3>
-        <p class="estacao-pergunta">A Schulz pagou só o que devia?</p>
-
-        <div class="estacao-states">
-          <div class="estacao-state asis">
-            <div class="label">Hoje</div>
-            <p>CT-e dá entrada manual no fiscal. Taxas extras vão validadas por e-mail. Pré-fatura funciona pra fracionado, não pra lotação. Documentos chegam ao Financeiro com 3 dias do vencimento, sem janela de tratativa real.</p>
-          </div>
-          <div class="estacao-state tobe">
-            <div class="label">Com o redesenho</div>
-            <p>CT-e integra automático no ERP. Sistema audita contra tabela com tolerância configurável e cubagem parametrizada por transportadora. Painel de divergências com responsável e prazo. Fatura integra 10 a 20 dias antes do vencimento, já auditada.</p>
-          </div>
-        </div>
-
-        <div class="estacao-meta">
-          <span class="estacao-tag area">Fiscal · Controladoria · Financeiro</span>
-          <span class="estacao-tag tech">Auditoria automatizada</span>
-        </div>
-      </div>
-
+<section id="kpis" class="alt">
+  <div class="container">
+    <div class="eyebrow cyan reveal">09 &middot; Indicadores</div>
+    <h2 class="reveal d1">8 KPIs para medir<br>a evolucao do processo.</h2>
+    <p class="lead reveal d2" style="margin-top:16px">Compromisso de leitura mensal. Cada indicador endereca uma das dores estruturais.</p>
+    <div class="kpi-grid reveal d3">
+      <div class="kpi"><div class="kpi-num">01</div><h4>OTIF e SLA por transportadora</h4><p>Separa atraso real de atraso justificado com base nas ocorrencias do EDI Proceda.</p></div>
+      <div class="kpi"><div class="kpi-num">02</div><h4>Aderencia contratual</h4><p>Percentual da base que cumpre a clausula de publicacao de status.</p></div>
+      <div class="kpi"><div class="kpi-num">03</div><h4>Saving comprovado</h4><p>Valor recuperado por contestacao de divergencia via auditoria automatica.</p></div>
+      <div class="kpi"><div class="kpi-num">04</div><h4>Tempo de tratativa</h4><p>Da abertura ao fechamento de pendencia, com responsavel e prazo registrados.</p></div>
+      <div class="kpi"><div class="kpi-num">05</div><h4>Ordens de Coleta recusadas</h4><p>Por transportadora. Sinal de saude da malha e gatilho de revisao da base.</p></div>
+      <div class="kpi"><div class="kpi-num">06</div><h4>Janela de antecipacao</h4><p>Dias uteis entre integracao da fatura e vencimento.</p></div>
+      <div class="kpi"><div class="kpi-num">07</div><h4>Portais consultados</h4><p>Metrica de regressao da torre. Conta a saude do EDI Proceda na pratica.</p></div>
+      <div class="kpi"><div class="kpi-num">08</div><h4>Aderencia a modalidade</h4><p>Frequencia de divergencias CIF/FOB que impactam a integracao fiscal.</p></div>
     </div>
+  </div>
+</section>
 
-    <div class="jornada-progress">
-      <span>Processo <strong id="estacaoAtual" style="color: #fff;">1</strong> de 6</span>
-      <div class="arrows">
-        <button class="arrow" id="estPrev" aria-label="Processo anterior">
-          <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
-        </button>
-        <button class="arrow" id="estNext" aria-label="Próximo processo">
-          <svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"/></svg>
-        </button>
-      </div>
+<section id="equipe">
+  <div class="container">
+    <div class="eyebrow reveal">10 &middot; Registro da reuniao</div>
+    <h2 class="reveal d1">Equipe do projeto<br>e participantes.</h2>
+    <p class="lead reveal d2" style="margin-top:16px">Reuniao de mapeamento realizada em 18 de marco de 2026, na unidade de Joinville/SC.</p>
+    <div class="equipe-grid reveal d3">
+      <div class="equipe-card"><div class="area-name">Logistica</div><div class="gestor">Carlos Dias Campos (nao participou)</div><div class="participantes">Edgar (coord.), Rodrigo (inventario), Jackson (CD), Elenilson (PCP), Lincon (ger. Compressores)</div><div class="horario">9h15 - 12h</div></div>
+      <div class="equipe-card"><div class="area-name">Compras</div><div class="gestor">Eduardo Bertolotti</div><div class="participantes">Cida, Denise</div><div class="horario">9h45 - 10h15</div></div>
+      <div class="equipe-card"><div class="area-name">Recebimento Fiscal</div><div class="gestor">Anselmo</div><div class="participantes">&mdash;</div><div class="horario">10h15 - 10h45</div></div>
+      <div class="equipe-card"><div class="area-name">Financeiro</div><div class="gestor">Vitor (gerente)</div><div class="participantes">Eduardo (analista)</div><div class="horario">10h45 - 11h15</div></div>
+      <div class="equipe-card"><div class="area-name">Controladoria</div><div class="gestor">Luciana (gerente)</div><div class="participantes">Maiara (analista)</div><div class="horario">11h15 - 11h45</div></div>
+      <div class="equipe-card"><div class="area-name">TIC</div><div class="gestor">Gerson</div><div class="participantes">Sidnei, Ricardo, Claudio</div><div class="horario">9h - 12h</div></div>
+      <div class="equipe-card"><div class="area-name">RVA</div><div class="gestor">Gustavo</div><div class="participantes">Fretes de garantia, emissao de NF pelo cliente</div><div class="horario">&mdash;</div></div>
+      <div class="equipe-card"><div class="area-name">Vendas / Revenda</div><div class="gestor">Claudemir</div><div class="participantes">Operacao Ascensus, agendamento, tracking</div><div class="horario">&mdash;</div></div>
+      <div class="equipe-card"><div class="area-name">Manutencao</div><div class="gestor">Joao</div><div class="participantes">Fora do escopo prioritario</div><div class="horario">&mdash;</div></div>
     </div>
-  </section>
-
-  <!-- O FIO INVISÍVEL -->
-  <section class="fio-section" id="fio">
-    <div class="fio-content">
-      <div class="eyebrow reveal">A virada</div>
-      <h2 class="reveal delay-1">Cada processo se conecta<br>à seguinte por <em>um fio</em>.</h2>
-      <p class="quote reveal delay-2">Quando o fio é <span class="green">digital</span>, o controle é total.<br>Quando o fio é <span class="red">e-mail</span>, o processo é manual.</p>
-      <p class="lead reveal delay-3" style="margin: 0 auto;">Hoje, das 5 conexões entre os 6 processos, 4 são feitas por e-mail e WhatsApp. Apenas 1 é sistema.</p>
-
-      <div class="fio-diagram reveal delay-4">
-        <div class="fio-diagram-title warn" id="fioTitle">Hoje, 4 dos 5 fios são e-mail e WhatsApp</div>
-
-        <div class="fio-stations" id="fioStations">
-          <div class="fio-station active">
-            <div class="fio-circle">1</div>
-            <div class="fio-label">Pedido entra</div>
-          </div>
-          <div class="fio-link email">
-            <div class="fio-link-line"></div>
-            <div class="fio-link-emoji">✉</div>
-          </div>
-          <div class="fio-station active">
-            <div class="fio-circle">2</div>
-            <div class="fio-label">Contratada</div>
-          </div>
-          <div class="fio-link email">
-            <div class="fio-link-line"></div>
-            <div class="fio-link-emoji">✉</div>
-          </div>
-          <div class="fio-station active">
-            <div class="fio-circle">3</div>
-            <div class="fio-label">Sai</div>
-          </div>
-          <div class="fio-link email">
-            <div class="fio-link-line"></div>
-            <div class="fio-link-emoji">✉</div>
-          </div>
-          <div class="fio-station active">
-            <div class="fio-circle">4</div>
-            <div class="fio-label">Viaja</div>
-          </div>
-          <div class="fio-link email">
-            <div class="fio-link-line"></div>
-            <div class="fio-link-emoji">✉</div>
-          </div>
-          <div class="fio-station active">
-            <div class="fio-circle">5</div>
-            <div class="fio-label">Entregue</div>
-          </div>
-          <div class="fio-link system">
-            <div class="fio-link-line"></div>
-            <div class="fio-link-emoji">⚡</div>
-          </div>
-          <div class="fio-station active">
-            <div class="fio-circle">6</div>
-            <div class="fio-label">Pago</div>
-          </div>
-        </div>
-
-        <div class="fio-toggle-wrap">
-          <div class="fio-toggle">
-            <button class="active" data-state="now">Hoje</button>
-            <button data-state="future">Com o redesenho</button>
-          </div>
-        </div>
-
-        <div class="fio-summary">
-          <div class="fio-summary-item warn" id="fioWarn">
-            <div class="num">4</div>
-            <div class="desc">conexões por e-mail e WhatsApp</div>
-          </div>
-          <div class="fio-summary-item ok" id="fioOk">
-            <div class="num">1</div>
-            <div class="desc">conexão sistêmica</div>
-          </div>
-        </div>
-      </div>
+    <h3 class="reveal" style="margin-top:48px;margin-bottom:20px">Detalhes operacionais complementares</h3>
+    <div class="detalhes-grid">
+      <div class="detalhe reveal"><div class="tag" style="background:var(--purple-tint);color:var(--purple)">Fiscal</div><h4>Prazo de lancamento</h4><p>48 horas para lancar o documento fiscal, ou ate o vencimento do frete.</p></div>
+      <div class="detalhe reveal d1"><div class="tag" style="background:var(--purple-tint);color:var(--purple)">Compliance</div><h4>Modalidade FOB / CIF</h4><p>Troca de modalidade sem carta de correcao exige evidencia registrada no sistema.</p></div>
+      <div class="detalhe reveal d2"><div class="tag" style="background:var(--purple-tint);color:var(--purple)">Expedicao</div><h4>NF sem data de saida</h4><p>Faturamento antecipado gera notas sem data de saida efetiva. Integrar NFs e monitorar expedicao.</p></div>
+      <div class="detalhe reveal"><div class="tag" style="background:var(--cyan-tint);color:var(--cyan)">Auditoria</div><h4>Peso embalagem</h4><p>Em algumas notas, peso da embalagem ja esta somado. Pode gerar divergencia falsa.</p></div>
+      <div class="detalhe reveal d1"><div class="tag" style="background:var(--cyan-tint);color:var(--cyan)">Transportadoras</div><h4>Irapuru e Sulista</h4><p>Irapuru: 6 janelas diarias programadas. Sulista: agendamento por e-mail.</p></div>
+      <div class="detalhe reveal d2"><div class="tag" style="background:var(--cyan-tint);color:var(--cyan)">Origem</div><h4>4 areas que originam carga</h4><p>PCP, Planejamento de Materiais, Expedicao e GAC.</p></div>
     </div>
-  </section>
-
-  <!-- A PEÇA QUE NINGUÉM VÊ -->
-  <section class="peca-section" id="peca">
-    <div class="peca-content">
-      <div class="eyebrow reveal">O ato 2</div>
-      <h2 class="reveal delay-1">Mesmo digitalizando todos os processos,<br>há um complemento importante.</h2>
-
-      <div class="peca-card reveal delay-2">
-        <span class="ribbon">O complemento contratual</span>
-        <h3>O sistema funciona,<br>mas a transportadora precisa <em>alimentar ele</em>.</h3>
-
-        <p>Se a Schulz parametrizar o Lincros nos 6 processos mas a transportadora continuar mandando status só por e-mail, a torre opera com informações parciais. <strong>A publicação de status pela transportadora depende de uma exigência contratual</strong>, que complementa a parametrização do sistema.</p>
-
-        <p>É aqui que o redesenho deixa de ser implementação de software e vira <strong>governança da malha de transporte</strong>. Essa evolução depende de uma cláusula contratual no processo de homologação.</p>
-
-        <div class="peca-divisao">
-          <div class="ferramenta">
-            <h5>O que o Lincros resolve</h5>
-            <p>Processos 1 a 6, parametrização e treinamento. Trabalho técnico do time Lincros.</p>
-          </div>
-          <div class="governanca">
-            <h5>O que o contrato resolve</h5>
-            <p>A transportadora se obriga a publicar status no sistema da Schulz. Sem isso, sem pagamento.</p>
-          </div>
-        </div>
-
-        <p style="margin-top: 32px;">A formulação contratual prevê o método de envio (EDI Proceda ou input manual no portal), os tipos de ocorrência mínimos exigidos, o prazo de publicação após o evento e a consequência do descumprimento. Em fase 2, evolui para o princípio <strong>"no track, no pay"</strong>: sem publicação, sem pagamento de frete.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- DECISÕES EXECUTIVAS -->
-  <section class="decisoes-section" id="decisoes">
-    <div class="container">
-      <div class="eyebrow reveal">O que está em jogo</div>
-      <h2 class="reveal delay-1">3 próximos passos<br>para evoluir o processo.</h2>
-      <p class="lead reveal delay-2" style="margin-top: 20px;">Não são 7 dores, não são 5 princípios. São 3 etapas sugeridas para que o processo entre em operação de forma estruturada.</p>
-
-      <div class="decisoes-grid">
-        <div class="decisao reveal">
-          <div class="num">1</div>
-          <h4>Aprovar parametrização do Lincros nos 6 processos</h4>
-          <p class="descricao">Sistema, integrações, usuários, EDI Proceda, Ordem de Coleta, painéis. Habilita controle ponta a ponta da carga.</p>
-          <div class="meta">
-            <div class="meta-row"><span class="key">Responsável</span><span class="val">Projetos Lincros + TI Schulz</span></div>
-            <div class="meta-row"><span class="key">Prazo</span><span class="val">90 dias</span></div>
-            <div class="meta-row"><span class="key">Impacto</span><span class="val">Processos 1 a 6</span></div>
-          </div>
-        </div>
-
-        <div class="decisao reveal delay-1">
-          <div class="num">2</div>
-          <h4>Aprovar revisão da minuta de homologação</h4>
-          <p class="descricao">Cláusula contratual obriga a transportadora a publicar status no sistema do embarcador. Aplicada a contratos novos e renovações.</p>
-          <div class="meta">
-            <div class="meta-row"><span class="key">Responsável</span><span class="val">Compras · Denise</span></div>
-            <div class="meta-row"><span class="key">Prazo</span><span class="val">60 dias</span></div>
-            <div class="meta-row"><span class="key">Impacto</span><span class="val">Sustenta a torre no tempo</span></div>
-          </div>
-        </div>
-
-        <div class="decisao reveal delay-2">
-          <div class="num">3</div>
-          <h4>Aprovar evolução para "no track, no pay"</h4>
-          <p class="descricao">Fase 2. Vincula liberação de pagamento de frete à publicação adequada das ocorrências do embarque. Tração contratual real.</p>
-          <div class="meta">
-            <div class="meta-row"><span class="key">Responsável</span><span class="val">Diretoria + Compras + Financeiro</span></div>
-            <div class="meta-row"><span class="key">Prazo</span><span class="val">6 meses pós-fase 1</span></div>
-            <div class="meta-row"><span class="key">Impacto</span><span class="val">Aderência total da malha</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CRONOGRAMA SWIMLANE -->
-  <section class="crono-section" id="crono">
-    <div class="container">
-      <div class="eyebrow reveal">Como entra em campo</div>
-      <h2 class="reveal delay-1">Duas frentes em paralelo,<br>uma data alvo única.</h2>
-      <p class="lead reveal delay-2" style="margin-top: 20px;">Sistema e contrato avançam em ritmos diferentes mas convergem na mesma data de entrada em vigor. Sem isso, a torre fica pronta antes do contrato e não opera.</p>
-
-      <div class="swimlane">
-        <div class="swimlane-row sistema reveal">
-          <div class="swimlane-head">
-            <span class="lane-tag">Sistema</span>
-            <h4>Time Lincros + TI Schulz</h4>
-          </div>
-          <div class="swimlane-steps">
-            <div class="swimlane-step">
-              <div class="step-num">Passo 1</div>
-              <div class="step-title">Parametrizar tabelas de frete</div>
-              <div class="step-desc">Cadastro por transportadora, incluindo cubagem.</div>
-            </div>
-            <div class="swimlane-step">
-              <div class="step-num">Passo 2</div>
-              <div class="step-title">Integrar TOTVS / Lincros</div>
-              <div class="step-desc">Romaneio e CT-e. Romaneio do TOTVS vira Embarque no Lincros.</div>
-            </div>
-            <div class="swimlane-step">
-              <div class="step-num">Passo 3</div>
-              <div class="step-title">Habilitar usuário Censos</div>
-              <div class="step-desc">Baixa em tempo real e agendamento de cargas dedicadas.</div>
-            </div>
-            <div class="swimlane-step">
-              <div class="step-num">Passo 4</div>
-              <div class="step-title">Configurar EDI Proceda</div>
-              <div class="step-desc">De/para por transportadora entre nomenclatura e padrão Schulz.</div>
-            </div>
-            <div class="swimlane-step">
-              <div class="step-num">Passo 5</div>
-              <div class="step-title">Ativar Ordem de Coleta</div>
-              <div class="step-desc">Carga expressa por fluxo sistêmico, com fallback de transportadoras.</div>
-            </div>
-            <div class="swimlane-step">
-              <div class="step-num">Passo 6</div>
-              <div class="step-title">Ativar painel de divergências</div>
-              <div class="step-desc">Controladoria com status, responsável e prazo de tratativa.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="swimlane-conv reveal">Sistema parametrizado e contrato revisado entram em vigor juntos</div>
-
-        <div class="swimlane-row governanca reveal">
-          <div class="swimlane-head">
-            <span class="lane-tag">Governança</span>
-            <h4>Compras Schulz · Denise</h4>
-          </div>
-          <div class="swimlane-steps">
-            <div class="swimlane-step">
-              <div class="step-num">Passo 7</div>
-              <div class="step-title">Nova cláusula de homologação</div>
-              <div class="step-desc">Transportadoras novas e renovadas assinam obrigação de publicar status.</div>
-            </div>
-            <div class="swimlane-step">
-              <div class="step-num">Passo 8</div>
-              <div class="step-title">Aditivo para base existente</div>
-              <div class="step-desc">Revisão das transportadoras já contratadas com cláusula de publicação.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- KPIs -->
-  <section class="kpi-section" id="kpis">
-    <div class="container">
-      <div class="eyebrow cyan reveal">Como medir</div>
-      <h2 class="reveal delay-1">5 indicadores<br>para a fase pós-implantação.</h2>
-      <p class="lead reveal delay-2" style="margin-top: 20px;">Leitura mensal. Comparam o estado atual com a meta pra primeiros 90 dias após a entrada em vigor.</p>
-
-      <div class="kpi-grid">
-        <div class="kpi-card reveal">
-          <div class="kpi-icon">%</div>
-          <h5>Embarques com status no prazo</h5>
-          <div class="kpi-sub">aderência da malha</div>
-          <div class="kpi-comparison">
-            <div><div class="label">Hoje</div><div class="val now">~10%</div></div>
-            <div><div class="label">Meta 90d</div><div class="val target">85%</div></div>
-          </div>
-        </div>
-
-        <div class="kpi-card reveal delay-1">
-          <div class="kpi-icon">⏱</div>
-          <h5>Ocorrência → publicação</h5>
-          <div class="kpi-sub">velocidade da informação</div>
-          <div class="kpi-comparison">
-            <div><div class="label">Hoje</div><div class="val now">+24h</div></div>
-            <div><div class="label">Meta 90d</div><div class="val target">≤ 4h</div></div>
-          </div>
-        </div>
-
-        <div class="kpi-card reveal delay-2">
-          <div class="kpi-icon">⚠</div>
-          <h5>Divergências identificadas</h5>
-          <div class="kpi-sub">por categoria</div>
-          <div class="kpi-comparison">
-            <div><div class="label">Hoje</div><div class="val now">subjetivo</div></div>
-            <div><div class="label">Meta 90d</div><div class="val target">100% rastreado</div></div>
-          </div>
-        </div>
-
-        <div class="kpi-card reveal delay-3">
-          <div class="kpi-icon">$</div>
-          <h5>Saving auditoria de frete</h5>
-          <div class="kpi-sub">cobrança contestada</div>
-          <div class="kpi-comparison">
-            <div><div class="label">Hoje</div><div class="val now">não medido</div></div>
-            <div><div class="label">Meta 90d</div><div class="val target">2 a 4% sobre frete</div></div>
-          </div>
-        </div>
-
-        <div class="kpi-card reveal">
-          <div class="kpi-icon">d</div>
-          <h5>Integração → liberação</h5>
-          <div class="kpi-sub">janela de tratativa</div>
-          <div class="kpi-comparison">
-            <div><div class="label">Hoje</div><div class="val now">3 dias</div></div>
-            <div><div class="label">Meta 90d</div><div class="val target">10-20 dias</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
 </main>
 
-  <!-- EQUIPE E PARTICIPANTES -->
-  <section id="equipe" class="alt">
-    <div class="container">
-      <div class="section-header">
-        <div class="eyebrow reveal">Registro da reunião</div>
-        <h2 class="reveal delay-1">Equipe do projeto<br>e participantes.</h2>
-        <p class="lead reveal delay-2" style="margin-top: 20px;">Reunião de mapeamento realizada em 18 de março de 2026, na unidade de Joinville/SC.</p>
-      </div>
-
-      <div class="compare reveal delay-3">
-        <div class="compare-row head">
-          <div class="compare-cell">Área</div>
-          <div class="compare-cell">Gestor</div>
-          <div class="compare-cell" style="text-align:center;">Horário</div>
-          <div class="compare-cell">Participantes</div>
-        </div>
-        <div class="compare-row">
-          <div class="compare-cell area">Logística</div>
-          <div class="compare-cell asis">Carlos Dias Campos</div>
-          <div class="compare-cell" style="text-align:center;">9h15 – 12h</div>
-          <div class="compare-cell tobe">Edgar (coord.), Rodrigo (inventário), Jackson (CD), Elenilson (PCP), Lincon (ger. Compressores). Carlos Dias não participou.</div>
-        </div>
-        <div class="compare-row">
-          <div class="compare-cell area">Compras</div>
-          <div class="compare-cell asis">Eduardo Bertolotti</div>
-          <div class="compare-cell" style="text-align:center;">9h45 – 10h15</div>
-          <div class="compare-cell tobe">Cida, Denise</div>
-        </div>
-        <div class="compare-row">
-          <div class="compare-cell area">Rec. Fiscal</div>
-          <div class="compare-cell asis">Anselmo</div>
-          <div class="compare-cell" style="text-align:center;">10h15 – 10h45</div>
-          <div class="compare-cell tobe">—</div>
-        </div>
-        <div class="compare-row">
-          <div class="compare-cell area">Financeiro</div>
-          <div class="compare-cell asis">Vitor</div>
-          <div class="compare-cell" style="text-align:center;">10h45 – 11h15</div>
-          <div class="compare-cell tobe">Eduardo (analista)</div>
-        </div>
-        <div class="compare-row">
-          <div class="compare-cell area">Controladoria</div>
-          <div class="compare-cell asis">Luciana</div>
-          <div class="compare-cell" style="text-align:center;">11h15 – 11h45</div>
-          <div class="compare-cell tobe">Maiara (analista)</div>
-        </div>
-        <div class="compare-row">
-          <div class="compare-cell area">TIC</div>
-          <div class="compare-cell asis">Gerson</div>
-          <div class="compare-cell" style="text-align:center;">9h – 12h</div>
-          <div class="compare-cell tobe">Sidnei, Ricardo, Cláudio</div>
-        </div>
-        <div class="compare-row">
-          <div class="compare-cell area">RVA</div>
-          <div class="compare-cell asis">Gustavo</div>
-          <div class="compare-cell" style="text-align:center;">—</div>
-          <div class="compare-cell tobe">Fretes de garantia e revenda reversa</div>
-        </div>
-        <div class="compare-row">
-          <div class="compare-cell area">Vendas / Revenda</div>
-          <div class="compare-cell asis">Claudemir</div>
-          <div class="compare-cell" style="text-align:center;">—</div>
-          <div class="compare-cell tobe">Operação Censos, agendamento, tracking</div>
-        </div>
-        <div class="compare-row">
-          <div class="compare-cell area">Manutenção</div>
-          <div class="compare-cell asis">João</div>
-          <div class="compare-cell" style="text-align:center;">—</div>
-          <div class="compare-cell tobe">Fora do escopo prioritário</div>
-        </div>
-      </div>
-
-      <div style="margin-top: 48px;">
-        <h3 class="reveal" style="margin-bottom: 20px;">Detalhes operacionais complementares</h3>
-        <div class="escopo-grid" style="grid-template-columns: repeat(3, 1fr);">
-          <div class="escopo-card reveal">
-            <div class="escopo-badge" style="background: var(--purple-tint); color: var(--purple);">Fiscal</div>
-            <div class="escopo-text">
-              <h4>Prazo de lançamento</h4>
-              <p>48 horas para lançar o documento fiscal, ou até o vencimento do frete (o que vier primeiro).</p>
-            </div>
-          </div>
-          <div class="escopo-card reveal delay-1">
-            <div class="escopo-badge" style="background: var(--purple-tint); color: var(--purple);">Compliance</div>
-            <div class="escopo-text">
-              <h4>Modalidade FOB ↔ CIF</h4>
-              <p>Quando há troca de modalidade sem carta de correção, a auditoria precisa de evidência registrada no sistema.</p>
-            </div>
-          </div>
-          <div class="escopo-card reveal delay-2">
-            <div class="escopo-badge" style="background: var(--purple-tint); color: var(--purple);">Expedição</div>
-            <div class="escopo-text">
-              <h4>NF sem data de saída</h4>
-              <p>Faturamento antecipado gera notas sem data de saída efetiva. Integrar todas as NFs e monitorar a expedição.</p>
-            </div>
-          </div>
-          <div class="escopo-card reveal">
-            <div class="escopo-badge" style="background: var(--cyan-tint); color: var(--cyan);">Auditoria</div>
-            <div class="escopo-text">
-              <h4>Peso embalagem vs mercadoria</h4>
-              <p>Em algumas notas, o peso da embalagem já está somado ao da mercadoria. Isso pode gerar divergência falsa no cálculo de frete.</p>
-            </div>
-          </div>
-          <div class="escopo-card reveal delay-1">
-            <div class="escopo-badge" style="background: var(--cyan-tint); color: var(--cyan);">Transportadoras</div>
-            <div class="escopo-text">
-              <h4>Irapuru e Sulista</h4>
-              <p>Irapuru opera com 6 janelas diárias programadas. Sulista trabalha com agendamento por e-mail.</p>
-            </div>
-          </div>
-          <div class="escopo-card reveal delay-2">
-            <div class="escopo-badge" style="background: var(--cyan-tint); color: var(--cyan);">Origem de demanda</div>
-            <div class="escopo-text">
-              <h4>4 áreas que originam carga</h4>
-              <p>Planejamento de Produção, Planejamento de Materiais, Expedição e GAC. Cada uma pode gerar demanda de coleta.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
 <footer>
   <div class="container">
-    <h2>Pronto para devolver<br><span class="accent">o controle pra Schulz.</span></h2>
-    <p>O Lincros sozinho entrega ferramenta. A Consolida traz a governança da malha que faz a ferramenta operar no tempo. Essa é a diferença.</p>
+    <div class="eyebrow" style="margin:0 auto 16px">Proximos passos</div>
+    <h2>Pronto para evoluir o processo<br><span class="accent">com a Consolida.</span></h2>
+    <p>BPO de auditoria de frete e governanca da malha de transporte para industrias que buscam controle financeiro da logistica.</p>
     <div class="contacts">
-      <div class="contact-tag">@oconsolida</div>
+      <div class="contact-tag">Diego Araujo &middot; CEO</div>
+      <div class="contact-tag">diego@oconsolida.com</div>
+      <div class="contact-tag">47 98433-5969</div>
       <div class="contact-tag">www.oconsolida.com.br</div>
-      <div class="contact-tag">consolida-oficial</div>
-      <div class="contact-tag">47 98433 5969</div>
     </div>
-    <div class="footer-meta">CONSOLIDA × LINCROS · APRESENTAÇÃO 30 ABR 2026</div>
+    <div class="footer-meta">Consolida &times; Lincros &middot; Diagnostico Consolidado &middot; Maio 2026</div>
   </div>
 </footer>
 
 <script>
-  // Progress bar
-  const progress = document.getElementById('progress');
-  const updateProgress = () => {
-    const h = document.documentElement;
-    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
-    progress.style.width = (scrolled * 100) + '%';
-  };
-
-  // Reveal
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealObserver.unobserve(e.target); } });
-  }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
-  document.querySelectorAll('.reveal:not(.in)').forEach(el => revealObserver.observe(el));
-
-  // Counter
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = parseInt(el.dataset.counter);
-        const duration = 1400;
-        const start = performance.now();
-        const animate = (now) => {
-          const t = Math.min((now - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - t, 3);
-          el.textContent = Math.round(target * eased);
-          if (t < 1) requestAnimationFrame(animate);
-        };
-        requestAnimationFrame(animate);
-        counterObserver.unobserve(el);
-      }
-    });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('[data-counter]').forEach(el => counterObserver.observe(el));
-
-  // ========== JORNADA HORIZONTAL ==========
-  const rail = document.getElementById('jornadaRail');
-  const estPrev = document.getElementById('estPrev');
-  const estNext = document.getElementById('estNext');
-  const estacaoAtual = document.getElementById('estacaoAtual');
-
-  function getEstacaoIndex() {
-    const cards = rail.querySelectorAll('.estacao');
-    let closest = 0;
-    let minDist = Infinity;
-    cards.forEach((c, i) => {
-      const d = Math.abs(c.getBoundingClientRect().left - rail.getBoundingClientRect().left - 32);
-      if (d < minDist) { minDist = d; closest = i; }
-    });
-    return closest;
-  }
-
-  function scrollToEstacao(idx) {
-    const cards = rail.querySelectorAll('.estacao');
-    const clamped = Math.max(0, Math.min(cards.length - 1, idx));
-    const target = cards[clamped];
-    if (!target) return;
-    rail.scrollTo({ left: target.offsetLeft - 32, behavior: 'smooth' });
-  }
-
-  estPrev.addEventListener('click', () => scrollToEstacao(getEstacaoIndex() - 1));
-  estNext.addEventListener('click', () => scrollToEstacao(getEstacaoIndex() + 1));
-
-  rail.addEventListener('scroll', () => {
-    estacaoAtual.textContent = getEstacaoIndex() + 1;
-  }, { passive: true });
-
-  // ========== O FIO TOGGLE ==========
-  const fioToggle = document.querySelectorAll('.fio-toggle button');
-  const fioStations = document.getElementById('fioStations');
-  const fioTitle = document.getElementById('fioTitle');
-  const fioWarn = document.getElementById('fioWarn');
-  const fioOk = document.getElementById('fioOk');
-
-  fioToggle.forEach(btn => {
-    btn.addEventListener('click', () => {
-      fioToggle.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const state = btn.dataset.state;
-
-      const links = fioStations.querySelectorAll('.fio-link');
-      const emojis = fioStations.querySelectorAll('.fio-link-emoji');
-
-      if (state === 'now') {
-        links.forEach((l, i) => {
-          if (i < 4) { l.className = 'fio-link email'; emojis[i].textContent = '✉'; }
-          else { l.className = 'fio-link system'; emojis[i].textContent = '⚡'; }
-        });
-        fioTitle.textContent = 'Hoje, 4 dos 5 fios são e-mail e WhatsApp';
-        fioTitle.className = 'fio-diagram-title warn';
-        fioWarn.querySelector('.num').textContent = '4';
-        fioWarn.querySelector('.desc').textContent = 'conexões por e-mail e WhatsApp';
-        fioOk.querySelector('.num').textContent = '1';
-        fioOk.querySelector('.desc').textContent = 'conexão sistêmica';
-      } else {
-        links.forEach((l, i) => {
-          l.className = 'fio-link system';
-          emojis[i].textContent = '⚡';
-        });
-        fioTitle.textContent = 'Com o redesenho, todas as 5 conexões são sistêmicas';
-        fioTitle.className = 'fio-diagram-title success';
-        fioWarn.querySelector('.num').textContent = '0';
-        fioWarn.querySelector('.desc').textContent = 'conexões por e-mail e WhatsApp';
-        fioOk.querySelector('.num').textContent = '5';
-        fioOk.querySelector('.desc').textContent = 'conexões sistêmicas';
-      }
-    });
-  });
-
-  // ========== SECTION NAV ==========
-  const allSections = Array.from(document.querySelectorAll('main section[id]'));
-  const secnav = document.getElementById('secnav');
-  const secnavPrev = document.getElementById('secnavPrev');
-  const secnavNext = document.getElementById('secnavNext');
-  const secnavCurrent = document.getElementById('secnavCurrent');
-  const secnavTotal = document.getElementById('secnavTotal');
-  secnavTotal.textContent = allSections.length;
-
-  function getCurrentSection() {
-    const scrollY = window.scrollY;
-    const pivot = window.innerHeight * 0.35;
-    let current = 0;
-    for (let i = 0; i < allSections.length; i++) {
-      if (allSections[i].offsetTop - pivot <= scrollY) current = i;
-      else break;
-    }
-    return current;
-  }
-  function scrollToSection(idx) {
-    const clamped = Math.max(0, Math.min(allSections.length - 1, idx));
-    const target = allSections[clamped];
-    if (!target) return;
-    window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
-  }
-  function updateSecnav() {
-    const idx = getCurrentSection();
-    secnavCurrent.textContent = idx + 1;
-    secnavPrev.disabled = idx === 0;
-    const isLast = idx === allSections.length - 1;
-    if (isLast) {
-      secnavNext.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="18,15 12,9 6,15"/></svg>';
-      secnavNext.dataset.action = 'top';
-    } else {
-      secnavNext.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="6,9 12,15 18,9"/></svg>';
-      secnavNext.dataset.action = 'next';
-    }
-    secnav.classList.add('visible');
-  }
-  secnavPrev.addEventListener('click', () => scrollToSection(getCurrentSection() - 1));
-  secnavNext.addEventListener('click', () => {
-    if (secnavNext.dataset.action === 'top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      scrollToSection(getCurrentSection() + 1);
-    }
-  });
-
-  // Keyboard
-  let kbDebounce = false;
-  document.addEventListener('keydown', (e) => {
-    const tag = (e.target.tagName || '').toLowerCase();
-    if (tag === 'input' || tag === 'textarea') return;
-
-    // If inside jornada section, arrows control horizontal scroll
-    const jornadaRect = document.getElementById('jornada').getBoundingClientRect();
-    const insideJornada = jornadaRect.top < window.innerHeight * 0.5 && jornadaRect.bottom > window.innerHeight * 0.5;
-
-    let handled = false;
-    if (insideJornada && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
-      if (!kbDebounce) {
-        scrollToEstacao(getEstacaoIndex() + (e.key === 'ArrowRight' ? 1 : -1));
-        handled = true;
-      }
-    } else if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
-      if (!kbDebounce) { scrollToSection(getCurrentSection() + 1); handled = true; }
-    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-      if (!kbDebounce) { scrollToSection(getCurrentSection() - 1); handled = true; }
-    }
-    if (handled) {
-      e.preventDefault();
-      kbDebounce = true;
-      setTimeout(() => kbDebounce = false, 600);
-    }
-  });
-
-  window.addEventListener('scroll', () => { updateProgress(); updateSecnav(); }, { passive: true });
-  updateProgress();
-  setTimeout(updateSecnav, 100);
+const progress=document.getElementById('progress');
+window.addEventListener('scroll',()=>{const h=document.documentElement;progress.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('in');obs.unobserve(el.target)}})},{threshold:.1,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.reveal:not(.in)').forEach(el=>obs.observe(el));
+const cobs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){const t=parseInt(el.target.dataset.counter),d=1200,s=performance.now(),a=n=>{const p=Math.min((n-s)/d,1);el.target.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(a)};requestAnimationFrame(a);cobs.unobserve(el.target)}})},{threshold:.5});
+document.querySelectorAll('[data-counter]').forEach(el=>cobs.observe(el));
 </script>
 </body>
 </html>
